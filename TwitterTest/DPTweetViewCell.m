@@ -9,6 +9,9 @@
 #import "DPTweetViewCell.h"
 #import "STTweetLabel.h"
 
+static NSDateFormatter *formatter;
+static NSDateFormatter *reader;
+
 @implementation DPTweetViewCell
 
 +(DPTweetViewCell *)newCell {
@@ -42,7 +45,14 @@
 }
 
 -(void)displayTweet:(NSDictionary *)tweet {
-    self.timestamp.text = [tweet objectForKey:@"created_at"];
+    if(!formatter) {
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"EEE, MMM dd, YYYY HH:mm";
+        
+        reader = [[NSDateFormatter alloc] init];
+        reader.dateFormat = @"EEE MMM dd HH:mm:ss Z yyyy";
+    }
+    self.timestamp.text = [formatter stringFromDate:[reader dateFromString:[tweet objectForKey:@"created_at"]]];
     self.authorName.text = [tweet valueForKeyPath:@"user.name"];
     self.authorUsername.text = [NSString stringWithFormat:@"@%@", [tweet valueForKeyPath:@"user.screen_name"]];
     self.descriptionText.text = [tweet objectForKey:@"text"];
