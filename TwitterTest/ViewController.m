@@ -12,6 +12,7 @@
 #import "DPTweetViewCell.h"
 #import "STTweetLabel.h"
 #import "DPTweetsListViewController.h"
+#import "DPTwitterAccountSelector.h"
 
 @interface ViewController ()
 
@@ -22,66 +23,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self handleAccounts];
-}
-
--(void)handleAccounts {
-    self.accountStore = [[ACAccountStore alloc] init];
-    ACAccountType *accountType = [_accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    
-    if ([accountType accessGranted])
-    {
-        // have access already
-        [self _showListOfTwitterAccountsFromStore:_accountStore];
-    }
-    else
-    {
-        // need access first
-        [_accountStore requestAccessToAccountsWithType:accountType withCompletionHandler:^(BOOL granted, NSError *error) {
-            
-            if (granted)
-            {
-                [self _showListOfTwitterAccountsFromStore:_accountStore];
-            }
-            else
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot link account without permission" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-                [alert show];
-            }
-        }];
-    }
-}
-
-- (void)_showListOfTwitterAccountsFromStore:(ACAccountStore *)accountStore
-{
-    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
-    NSArray *twitterAccounts = [accountStore accountsWithAccountType:accountType];
-    
-    UIActionSheet *actions = [[UIActionSheet alloc] initWithTitle:@"Choose Account to Use" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    actions.tag = 2;
-    
-    NSMutableArray *shownAccounts = [NSMutableArray array];
-    
-    for (ACAccount *oneAccount in twitterAccounts)
-    {
-        NSLog(@"%@", oneAccount.username);
-        [actions addButtonWithTitle:oneAccount.username];
-        [shownAccounts addObject:oneAccount];
-    }
-    [actions addButtonWithTitle:@"Cancel"];
-    actions.cancelButtonIndex = [twitterAccounts count] + 1;
-    
-    self.shownAccounts = shownAccounts;
-    
-    [actions showInView:self.view];
-}
-
--(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if(buttonIndex != actionSheet.cancelButtonIndex) {
-        self.currentAccount = [_shownAccounts objectAtIndex:buttonIndex];
+    [DPTwitterAccountSelector getCurrentAccount:^(ACAccount *account) {
+        self.currentAccount = account;
         [self searchTwitter];
-    }
+    }];
 }
 
 -(void) searchTwitter {
@@ -116,8 +61,12 @@
 }
 
 - (void)viewDidUnload {
+    [self setSearchSegment:nil];
+    [self setSearchBox:nil];
     [super viewDidUnload];
 }
 
 
+- (IBAction)searchPressed:(id)sender {
+}
 @end

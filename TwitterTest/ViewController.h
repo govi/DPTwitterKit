@@ -12,7 +12,9 @@
 @interface ViewController : UIViewController<UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) ACAccount *currentAccount;
-@property (nonatomic, strong) NSMutableArray *shownAccounts;
-@property (nonatomic, strong) ACAccountStore *accountStore;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *searchSegment;
+@property (weak, nonatomic) IBOutlet UITextField *searchBox;
+
+- (IBAction)searchPressed:(id)sender;
 
 @end

@@ -34,6 +34,7 @@
 		97EA6087172E8BED0003CFF0 /* STTweetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA6086172E8BED0003CFF0 /* STTweetLabel.m */; };
 		97EA608B172E99F60003CFF0 /* DPTweetsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA6089172E99F60003CFF0 /* DPTweetsListViewController.m */; };
 		97EA608C172E99F60003CFF0 /* DPTweetsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97EA608A172E99F60003CFF0 /* DPTweetsListViewController.xib */; };
+		97EA608F172EA15A0003CFF0 /* DPTwitterAccountSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA608E172EA15A0003CFF0 /* DPTwitterAccountSelector.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,8 @@
 		97EA6088172E99F60003CFF0 /* DPTweetsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTweetsListViewController.h; sourceTree = "<group>"; };
 		97EA6089172E99F60003CFF0 /* DPTweetsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTweetsListViewController.m; sourceTree = "<group>"; };
 		97EA608A172E99F60003CFF0 /* DPTweetsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DPTweetsListViewController.xib; sourceTree = "<group>"; };
+		97EA608D172EA15A0003CFF0 /* DPTwitterAccountSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTwitterAccountSelector.h; sourceTree = "<group>"; };
+		97EA608E172EA15A0003CFF0 /* DPTwitterAccountSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTwitterAccountSelector.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +137,8 @@
 				97EA6088172E99F60003CFF0 /* DPTweetsListViewController.h */,
 				97EA6089172E99F60003CFF0 /* DPTweetsListViewController.m */,
 				97EA608A172E99F60003CFF0 /* DPTweetsListViewController.xib */,
+				97EA608D172EA15A0003CFF0 /* DPTwitterAccountSelector.h */,
+				97EA608E172EA15A0003CFF0 /* DPTwitterAccountSelector.m */,
 			);
 			path = TwitterTest;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 				97EA6059172AE4330003CFF0 /* DPTweetViewCell.m in Sources */,
 				97EA6087172E8BED0003CFF0 /* STTweetLabel.m in Sources */,
 				97EA608B172E99F60003CFF0 /* DPTweetsListViewController.m in Sources */,
+				97EA608F172EA15A0003CFF0 /* DPTwitterAccountSelector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
