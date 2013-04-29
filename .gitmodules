@@ -7,3 +7,6 @@
 [submodule "submodules/SDWebImage"]
 	path = submodules/SDWebImage
 	url = https://github.com/rs/SDWebImage.git
+[submodule "submodules/TSMiniWebBrowser"]
+	path = submodules/TSMiniWebBrowser
+	url = https://github.com/tonisalae/TSMiniWebBrowser.git

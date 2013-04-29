@@ -49,6 +49,14 @@
 		97EA60B5172EBA360003CFF0 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA60A9172EBA360003CFF0 /* UIImageView+WebCache.m */; };
 		97EA60BB172EBB630003CFF0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EA60BA172EBB630003CFF0 /* ImageIO.framework */; };
 		97EA60BD172EBB950003CFF0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EA60BC172EBB950003CFF0 /* MapKit.framework */; };
+		97EA60C9172ECEA80003CFF0 /* back_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 97EA60C0172ECEA80003CFF0 /* back_icon.png */; };
+		97EA60CA172ECEA80003CFF0 /* back_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97EA60C1172ECEA80003CFF0 /* back_icon@2x.png */; };
+		97EA60CB172ECEA80003CFF0 /* forward_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 97EA60C2172ECEA80003CFF0 /* forward_icon.png */; };
+		97EA60CC172ECEA80003CFF0 /* forward_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97EA60C3172ECEA80003CFF0 /* forward_icon@2x.png */; };
+		97EA60CD172ECEA80003CFF0 /* reload_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 97EA60C4172ECEA80003CFF0 /* reload_icon.png */; };
+		97EA60CE172ECEA80003CFF0 /* reload_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97EA60C5172ECEA80003CFF0 /* reload_icon@2x.png */; };
+		97EA60CF172ECEA80003CFF0 /* TSMiniWebBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA60C7172ECEA80003CFF0 /* TSMiniWebBrowser.m */; };
+		97EA60D0172ECEA80003CFF0 /* TSMiniWebBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97EA60C8172ECEA80003CFF0 /* TSMiniWebBrowser.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +126,15 @@
 		97EA60B8172EBB270003CFF0 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		97EA60BA172EBB630003CFF0 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		97EA60BC172EBB950003CFF0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		97EA60C0172ECEA80003CFF0 /* back_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_icon.png; sourceTree = "<group>"; };
+		97EA60C1172ECEA80003CFF0 /* back_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_icon@2x.png"; sourceTree = "<group>"; };
+		97EA60C2172ECEA80003CFF0 /* forward_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = forward_icon.png; sourceTree = "<group>"; };
+		97EA60C3172ECEA80003CFF0 /* forward_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward_icon@2x.png"; sourceTree = "<group>"; };
+		97EA60C4172ECEA80003CFF0 /* reload_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reload_icon.png; sourceTree = "<group>"; };
+		97EA60C5172ECEA80003CFF0 /* reload_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reload_icon@2x.png"; sourceTree = "<group>"; };
+		97EA60C6172ECEA80003CFF0 /* TSMiniWebBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSMiniWebBrowser.h; sourceTree = "<group>"; };
+		97EA60C7172ECEA80003CFF0 /* TSMiniWebBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSMiniWebBrowser.m; sourceTree = "<group>"; };
+		97EA60C8172ECEA80003CFF0 /* TSMiniWebBrowser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TSMiniWebBrowser.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +212,7 @@
 		977CCB89172ACC5A00C3FF6A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				97EA60BE172ECEA70003CFF0 /* TSMiniWebBrowser */,
 				97EA6090172EBA360003CFF0 /* SDWebImage */,
 				97EA6084172E8BED0003CFF0 /* STTweetLabel */,
 				97EA6045172AE2C10003CFF0 /* retweet_on.png */,
@@ -259,6 +277,31 @@
 			name = SDWebImage;
 			path = submodules/SDWebImage/SDWebImage;
 			sourceTree = SOURCE_ROOT;
+		};
+		97EA60BE172ECEA70003CFF0 /* TSMiniWebBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				97EA60BF172ECEA80003CFF0 /* images */,
+				97EA60C6172ECEA80003CFF0 /* TSMiniWebBrowser.h */,
+				97EA60C7172ECEA80003CFF0 /* TSMiniWebBrowser.m */,
+				97EA60C8172ECEA80003CFF0 /* TSMiniWebBrowser.xib */,
+			);
+			name = TSMiniWebBrowser;
+			path = submodules/TSMiniWebBrowser/TSMiniWebBrowser;
+			sourceTree = SOURCE_ROOT;
+		};
+		97EA60BF172ECEA80003CFF0 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				97EA60C0172ECEA80003CFF0 /* back_icon.png */,
+				97EA60C1172ECEA80003CFF0 /* back_icon@2x.png */,
+				97EA60C2172ECEA80003CFF0 /* forward_icon.png */,
+				97EA60C3172ECEA80003CFF0 /* forward_icon@2x.png */,
+				97EA60C4172ECEA80003CFF0 /* reload_icon.png */,
+				97EA60C5172ECEA80003CFF0 /* reload_icon@2x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -327,6 +370,13 @@
 				97EA6055172AE2C10003CFF0 /* favorite.png in Resources */,
 				97EA6056172AE2C10003CFF0 /* twitter-bird-light-bgs.png in Resources */,
 				97EA608C172E99F60003CFF0 /* DPTweetsListViewController.xib in Resources */,
+				97EA60C9172ECEA80003CFF0 /* back_icon.png in Resources */,
+				97EA60CA172ECEA80003CFF0 /* back_icon@2x.png in Resources */,
+				97EA60CB172ECEA80003CFF0 /* forward_icon.png in Resources */,
+				97EA60CC172ECEA80003CFF0 /* forward_icon@2x.png in Resources */,
+				97EA60CD172ECEA80003CFF0 /* reload_icon.png in Resources */,
+				97EA60CE172ECEA80003CFF0 /* reload_icon@2x.png in Resources */,
+				97EA60D0172ECEA80003CFF0 /* TSMiniWebBrowser.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +406,7 @@
 				97EA60B3172EBA360003CFF0 /* UIButton+WebCache.m in Sources */,
 				97EA60B4172EBA360003CFF0 /* UIImage+GIF.m in Sources */,
 				97EA60B5172EBA360003CFF0 /* UIImageView+WebCache.m in Sources */,
+				97EA60CF172ECEA80003CFF0 /* TSMiniWebBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

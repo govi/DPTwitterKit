@@ -22,6 +22,7 @@ static NSDateFormatter *reader;
         for(id obj in ar) {//load the nib and search for the cell
             if([obj isKindOfClass:[UITableViewCell class]]) {
                 cell = obj;
+                [cell decorate];
                 break;
             }
         }
@@ -45,7 +46,39 @@ static NSDateFormatter *reader;
     // Configure the view for the selected state
 }
 
+-(void)decorate {
+    [self.descriptionText setCallbackBlock:^(STLinkActionType actionType, NSString *link) {
+        // determine what the user clicked on
+        switch (actionType) {
+                // if the user clicked on an account (@_max_k)
+            case STLinkActionTypeAccount:
+                if(self.delegate && [self.delegate respondsToSelector:@selector(mentionsOpened:)])
+                    [self.delegate mentionsOpened:link];
+                break;
+                
+                // if the user clicked on a hashtag (#thisisreallycool)
+            case STLinkActionTypeHashtag:
+                if(self.delegate && [self.delegate respondsToSelector:@selector(hashtagOpened:)])
+                    [self.delegate hashtagOpened:link];
+                break;
+                
+                // if the user clicked on a website (http://github.com/SebastienThiebaud)
+            case STLinkActionTypeWebsite:
+                if(self.delegate && [self.delegate respondsToSelector:@selector(weblinkOpened:)])
+                    [self.delegate weblinkOpened:link];
+                break;
+        }
+    }];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(authorPressed:)];
+    [self.authorName addGestureRecognizer:gesture];
+    [self.authorUsername addGestureRecognizer:gesture];
+    [self.avatar addGestureRecognizer:gesture];
+}
+
 -(void)displayTweet:(NSDictionary *)tweet {
+    self.tweet = tweet;
     if(!formatter) {
         formatter = [[NSDateFormatter alloc] init];
         formatter.dateFormat = @"EEE, MMM dd, YYYY HH:mm";
@@ -81,18 +114,28 @@ static NSDateFormatter *reader;
 }
 
 - (IBAction)followPressed:(id)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(followPressed:)])
+        [self.delegate followPressed:[self.tweet valueForKeyPath:@"user.id_str"]];
 }
 
 - (IBAction)replyPressed:(id)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(replyPressed:)])
+        [self.delegate replyPressed:[self.tweet valueForKeyPath:@"id_str"]];
 }
 
 - (IBAction)retweetPressed:(id)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(retweetPressed:)])
+        [self.delegate retweetPressed:[self.tweet valueForKeyPath:@"user.id_str"]];
 }
 
 - (IBAction)favouritePressed:(id)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(favouritePressed:)])
+        [self.delegate favouritePressed:[self.tweet valueForKeyPath:@"id_str"]];
 }
 
 - (IBAction)authorPressed:(id)sender {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(authorPressed:)])
+        [self.delegate authorPressed:[self.tweet valueForKeyPath:@"user.id_str"]];
 }
 
 @end
