@@ -72,27 +72,32 @@
     actions.tag = 2;
     
     NSMutableArray *shownAccounts = [NSMutableArray array];
-    
     for (ACAccount *oneAccount in twitterAccounts)
     {
-        NSLog(@"%@", oneAccount.username);
         [actions addButtonWithTitle:oneAccount.username];
         [shownAccounts addObject:oneAccount];
     }
-    [actions addButtonWithTitle:@"Cancel"];
-    actions.cancelButtonIndex = [twitterAccounts count];
-    
     self.shownAccounts = shownAccounts;
+    if([twitterAccounts count] > 1) {
+        [actions addButtonWithTitle:@"Cancel"];
+        actions.cancelButtonIndex = [twitterAccounts count];
+        
+        [actions showInView: [UIApplication sharedApplication].keyWindow];
+    } else {
+        [self selectAccountAtIndex:0];
+    }
+}
 
-    [actions showInView: [UIApplication sharedApplication].keyWindow];
+-(void)selectAccountAtIndex:(int) index {
+    if(onSelect) {
+        onSelect([_shownAccounts objectAtIndex:index]);
+        onSelect = nil;
+    }
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if(buttonIndex != actionSheet.cancelButtonIndex) {
-        if(onSelect) {
-            onSelect([_shownAccounts objectAtIndex:buttonIndex]);
-            onSelect = nil;
-        }
+        [self selectAccountAtIndex:buttonIndex];
     }
 }
 
