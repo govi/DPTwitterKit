@@ -8,6 +8,7 @@
 
 #import "DPTweetsListViewController.h"
 #import "DPTweetViewCell.h"
+#import "TSMiniWebBrowser.h"
 
 @interface DPTweetsListViewController ()
 
@@ -20,7 +21,6 @@
     twController.tweets = array;
     return twController;
 }
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,6 +56,7 @@
     DPTweetViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DPTweetViewCell"];
     if(!cell) {
         cell = [DPTweetViewCell newCell];
+        cell.delegate = self;
     }
     NSDictionary *tweet = [_tweets objectAtIndex:indexPath.row];
     [cell displayTweet:tweet];
@@ -100,15 +101,18 @@
     }
 }
 
--(void)mentionsOpened:(NSString *)userId {
+-(void)mentionsOpened:(NSString *)username {
     if (self.delegate && [self.delegate respondsToSelector:@selector(mentionsOpened:)]) {
-        [self.delegate mentionsOpened:userId];
+        [self.delegate mentionsOpened:username];
     }
 }
 
--(void)weblinkOpened:(NSString *)userId {
+-(void)weblinkOpened:(NSString *)link {
     if (self.delegate && [self.delegate respondsToSelector:@selector(weblinkOpened:)]) {
-        [self.delegate weblinkOpened:userId];
+        [self.delegate weblinkOpened:link];
+    } else {
+        TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:link]];
+        [self.navigationController pushViewController:webBrowser animated:YES];
     }
 }
 

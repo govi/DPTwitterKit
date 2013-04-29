@@ -125,7 +125,7 @@ static NSDateFormatter *reader;
 
 - (IBAction)retweetPressed:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(retweetPressed:)])
-        [self.delegate retweetPressed:[self.tweet valueForKeyPath:@"user.id_str"]];
+        [self.delegate retweetPressed:[self.tweet valueForKeyPath:@"id_str"]];
 }
 
 - (IBAction)favouritePressed:(id)sender {

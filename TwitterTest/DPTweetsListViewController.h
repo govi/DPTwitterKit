@@ -17,8 +17,8 @@
 -(void)retweetPressed:(NSString *)tweetId;
 -(void)favouritePressed:(NSString *)tweetId;
 -(void)authorPressed:(NSString *)userId;
--(void)mentionsOpened:(NSString *)userId;
--(void)weblinkOpened:(NSString *)userId;
+-(void)mentionsOpened:(NSString *)username;
+-(void)weblinkOpened:(NSString *)link;
 -(void)hashtagOpened:(NSString *)hashtag;
 
 @end
