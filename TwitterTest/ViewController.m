@@ -11,6 +11,7 @@
 #import <Accounts/Accounts.h>
 #import "DPTweetViewCell.h"
 #import "STTweetLabel.h"
+#import "DPTweetsListViewController.h"
 
 @interface ViewController ()
 
@@ -94,8 +95,8 @@
         {
             NSError *parseError = nil;
             id json = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&parseError];
-            self.statuses = json[@"statuses"];
-            [self.tableView reloadData];         
+            DPTweetsListViewController *c = [DPTweetsListViewController controllerForTweets:json[@"statuses"]];
+            [self.navigationController pushViewController:c animated:YES];
             if (!json)
             {
                 NSLog(@"Parse Error: %@", parseError);
@@ -109,51 +110,7 @@
 }
 
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DPTweetViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DPTweetViewCell"];
-    if(!cell) {
-        cell = [DPTweetViewCell newCell];
-    }
-    NSDictionary *tweet = [_statuses objectAtIndex:indexPath.row];
-    cell.timestamp.text = [tweet objectForKey:@"created_at"];
-    cell.authorName.text = [tweet valueForKeyPath:@"user.name"];
-    cell.authorUsername.text = [NSString stringWithFormat:@"@%@", [tweet valueForKeyPath:@"user.screen_name"]];
-    cell.descriptionText.text = [tweet objectForKey:@"text"];
-    cell.retweetButton.selected = [[tweet objectForKey:@"retweeted"] boolValue];
-    int rtCount = [[tweet objectForKey:@"retweet_count"] intValue];
-    if(rtCount > 0) {
-        if(rtCount < 1000)
-            cell.rtCount.text = [NSString stringWithFormat:@"%d", rtCount];
-        else
-            cell.rtCount.text = @"999";
-    }
-    else
-        cell.rtCount.text = @"";
-    cell.favouriteButton.selected = [[tweet objectForKey:@"favorited"] boolValue];
-    int favCount = [[tweet objectForKey:@"favorite_count"] intValue];
-    if(favCount > 0) {
-        if(favCount < 1000)
-            cell.favCount.text = [NSString stringWithFormat:@"%d", favCount];
-        else
-            cell.favCount.text = @"999";
-    }
-    else
-        cell.favCount.text = @"";
-    
-    return cell;
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_statuses count];
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 106.0;
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -162,7 +119,8 @@
 }
 
 - (void)viewDidUnload {
-    [self setTableView:nil];
     [super viewDidUnload];
 }
+
+
 @end

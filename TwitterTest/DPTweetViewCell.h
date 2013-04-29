@@ -29,6 +29,7 @@
 - (IBAction)retweetPressed:(id)sender;
 - (IBAction)favouritePressed:(id)sender;
 - (IBAction)authorPressed:(id)sender;
+-(void)displayTweet:(NSDictionary *)tweet;
 +(DPTweetViewCell *)newCell;
 
 @end

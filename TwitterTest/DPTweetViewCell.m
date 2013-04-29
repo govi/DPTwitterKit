@@ -41,6 +41,33 @@
     // Configure the view for the selected state
 }
 
+-(void)displayTweet:(NSDictionary *)tweet {
+    self.timestamp.text = [tweet objectForKey:@"created_at"];
+    self.authorName.text = [tweet valueForKeyPath:@"user.name"];
+    self.authorUsername.text = [NSString stringWithFormat:@"@%@", [tweet valueForKeyPath:@"user.screen_name"]];
+    self.descriptionText.text = [tweet objectForKey:@"text"];
+    self.retweetButton.selected = [[tweet objectForKey:@"retweeted"] boolValue];
+    int rtCount = [[tweet objectForKey:@"retweet_count"] intValue];
+    if(rtCount > 0) {
+        if(rtCount < 1000)
+            self.rtCount.text = [NSString stringWithFormat:@"%d", rtCount];
+        else
+            self.rtCount.text = @"999";
+    }
+    else
+        self.rtCount.text = @"";
+    self.favouriteButton.selected = [[tweet objectForKey:@"favorited"] boolValue];
+    int favCount = [[tweet objectForKey:@"favorite_count"] intValue];
+    if(favCount > 0) {
+        if(favCount < 1000)
+            self.favCount.text = [NSString stringWithFormat:@"%d", favCount];
+        else
+            self.favCount.text = @"999";
+    }
+    else
+        self.favCount.text = @"";
+}
+
 - (IBAction)followPressed:(id)sender {
 }
 
