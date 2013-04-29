@@ -8,6 +8,7 @@
 
 #import "DPTweetViewCell.h"
 #import "STTweetLabel.h"
+#import "UIImageView+WebCache.h"
 
 static NSDateFormatter *formatter;
 static NSDateFormatter *reader;
@@ -76,6 +77,7 @@ static NSDateFormatter *reader;
     }
     else
         self.favCount.text = @"";
+    [self.avatar setImageWithURL:[NSURL URLWithString:[tweet valueForKeyPath:@"user.profile_image_url"]]];
 }
 
 - (IBAction)followPressed:(id)sender {

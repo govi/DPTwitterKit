@@ -25,33 +25,8 @@
     [super viewDidLoad];
     [DPTwitterAccountSelector getCurrentAccount:^(ACAccount *account) {
         self.currentAccount = account;
-        [self searchTwitter];
     }];
-}
-
--(void) searchTwitter {
-    NSURL *searchURL = [NSURL URLWithString:@"http://api.twitter.com/1.1/search/tweets.json"];
-    NSDictionary *parameters = [NSDictionary dictionaryWithObject:@"genie" forKey:@"q"];
-    TWRequest *request = [[TWRequest alloc] initWithURL:searchURL parameters:parameters requestMethod:TWRequestMethodGET];
-    request.account = _currentAccount;
-    NSLog(@"%@", _currentAccount.username);
-    [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-        if (responseData)
-        {
-            NSError *parseError = nil;
-            id json = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&parseError];
-            DPTweetsListViewController *c = [DPTweetsListViewController controllerForTweets:json[@"statuses"]];
-            [self.navigationController pushViewController:c animated:YES];
-            if (!json)
-            {
-                NSLog(@"Parse Error: %@", parseError);
-            }
-        }
-        else
-        {
-            NSLog(@"Request Error: %@", [error localizedDescription]);
-        }
-    }];
+    [self.searchSegment addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,7 +41,32 @@
     [super viewDidUnload];
 }
 
-
 - (IBAction)searchPressed:(id)sender {
+    NSURL *searchURL = [NSURL URLWithString:@"http://api.twitter.com/1.1/search/tweets.json"];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObject:self.searchBox.text forKey:@"q"];
+    TWRequest *request = [[TWRequest alloc] initWithURL:searchURL parameters:parameters requestMethod:TWRequestMethodGET];
+    request.account = _currentAccount;
+    [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        if (responseData)
+        {
+            NSError *parseError = nil;
+            id json = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&parseError];
+            [self performSelectorOnMainThread:@selector(openTwitterList:) withObject:json[@"statuses"] waitUntilDone:NO];
+            if (!json)
+            {
+                NSLog(@"Parse Error: %@", parseError);
+            }
+        }
+        else
+        {
+            NSLog(@"Request Error: %@", [error localizedDescription]);
+        }
+    }];
 }
+
+-(void)openTwitterList:(NSArray *)items {
+    DPTweetsListViewController *c = [DPTweetsListViewController controllerForTweets:items];
+    [self.navigationController pushViewController:c animated:YES];
+}
+
 @end
