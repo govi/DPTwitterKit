@@ -10,3 +10,6 @@
 [submodule "submodules/TSMiniWebBrowser"]
 	path = submodules/TSMiniWebBrowser
 	url = https://github.com/tonisalae/TSMiniWebBrowser.git
+[submodule "submodules/STTwitter"]
+	path = submodules/STTwitter
+	url = git@github.com:govi/STTwitter.git
