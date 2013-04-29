@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Accounts/Accounts.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) ACAccount *currentAccount;
+@property (nonatomic, strong) NSMutableArray *shownAccounts;
+@property (nonatomic, strong) ACAccountStore *accountStore;
+@property (nonatomic, strong) NSArray *statuses;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

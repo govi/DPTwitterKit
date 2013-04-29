@@ -1,0 +1,6 @@
+[submodule "submodules"]
+	path = submodules
+	url = https://github.com/SebastienThiebaud/STTweetLabel.git
+[submodule "submodules/STTweetLabel"]
+	path = submodules/STTweetLabel
+	url = https://github.com/SebastienThiebaud/STTweetLabel.git
