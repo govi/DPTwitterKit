@@ -7,28 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DPTweetViewCell.h"
 
-@protocol DPTweetViewControllerDelegate <NSObject>
-
-@optional
--(void)followPressed:(NSString *)userId;
--(void)replyPressed:(NSString *)tweetId;
--(void)retweetPressed:(NSString *)tweetId;
--(void)favouritePressed:(NSString *)tweetId;
--(void)authorPressed:(NSString *)userId;
--(void)mentionsOpened:(NSString *)username;
--(void)weblinkOpened:(NSString *)link;
--(void)hashtagOpened:(NSString *)hashtag;
-
-@end
-
-
-@interface DPTweetsListViewController : UIViewController <DPTweetViewCellDelegate>
+@interface DPTweetsListViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *listView;
-@property (nonatomic, strong) NSArray *tweets;
-@property (weak, nonatomic) id <DPTweetViewControllerDelegate> delegate;
+@property (strong, nonatomic) id<UITableViewDelegate> delegate;
+@property (strong, nonatomic) id<UITableViewDataSource> datasource;
 
 +(DPTweetsListViewController *)controllerForTweets:(NSArray *)array;
 

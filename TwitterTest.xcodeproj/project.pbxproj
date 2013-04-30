@@ -66,6 +66,8 @@
 		97EA60E9172FCDCA0003CFF0 /* NSString+STTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA60D3172FC7380003CFF0 /* NSString+STTwitter.m */; };
 		97EA60EC172FCFC90003CFF0 /* DPTwitterService.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA60EB172FCFC80003CFF0 /* DPTwitterService.m */; };
 		97EA60F2172FDB730003CFF0 /* STTwitterAccountSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA60F1172FDB720003CFF0 /* STTwitterAccountSelector.m */; };
+		97EA60F5172FF5770003CFF0 /* DPTwitterTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA60F4172FF5760003CFF0 /* DPTwitterTableDataSource.m */; };
+		97EA60F8172FF5A20003CFF0 /* DPTwitterTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA60F7172FF5A10003CFF0 /* DPTwitterTableDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,6 +165,10 @@
 		97EA60EB172FCFC80003CFF0 /* DPTwitterService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTwitterService.m; sourceTree = "<group>"; };
 		97EA60F0172FDB720003CFF0 /* STTwitterAccountSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTwitterAccountSelector.h; sourceTree = "<group>"; };
 		97EA60F1172FDB720003CFF0 /* STTwitterAccountSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTwitterAccountSelector.m; sourceTree = "<group>"; };
+		97EA60F3172FF5760003CFF0 /* DPTwitterTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTwitterTableDataSource.h; sourceTree = "<group>"; };
+		97EA60F4172FF5760003CFF0 /* DPTwitterTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTwitterTableDataSource.m; sourceTree = "<group>"; };
+		97EA60F6172FF5A00003CFF0 /* DPTwitterTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTwitterTableDelegate.h; sourceTree = "<group>"; };
+		97EA60F7172FF5A10003CFF0 /* DPTwitterTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTwitterTableDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +241,10 @@
 				97EA608E172EA15A0003CFF0 /* DPTwitterAccountSelector.m */,
 				97EA60EA172FCFC80003CFF0 /* DPTwitterService.h */,
 				97EA60EB172FCFC80003CFF0 /* DPTwitterService.m */,
+				97EA60F3172FF5760003CFF0 /* DPTwitterTableDataSource.h */,
+				97EA60F4172FF5760003CFF0 /* DPTwitterTableDataSource.m */,
+				97EA60F6172FF5A00003CFF0 /* DPTwitterTableDelegate.h */,
+				97EA60F7172FF5A10003CFF0 /* DPTwitterTableDelegate.m */,
 			);
 			path = TwitterTest;
 			sourceTree = "<group>";
@@ -480,6 +490,8 @@
 				97EA60E9172FCDCA0003CFF0 /* NSString+STTwitter.m in Sources */,
 				97EA60EC172FCFC90003CFF0 /* DPTwitterService.m in Sources */,
 				97EA60F2172FDB730003CFF0 /* STTwitterAccountSelector.m in Sources */,
+				97EA60F5172FF5770003CFF0 /* DPTwitterTableDataSource.m in Sources */,
+				97EA60F8172FF5A20003CFF0 /* DPTwitterTableDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
