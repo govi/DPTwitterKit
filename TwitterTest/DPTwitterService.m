@@ -14,6 +14,8 @@
 #import "DPTweetsCache.h"
 #import "SVProgressHUD.h"
 #import "NSDictionary+Extensions.h"
+#import <Twitter/Twitter.h>
+#import "REComposeViewController.h"
 
 @implementation DPTwitterService
 
@@ -109,6 +111,40 @@
     }];
 }
 
+-(void)replyToTweet:(NSString *)tweetId {
+    if([TWTweetComposeViewController canSendTweet]) {
+        REComposeViewController *composeViewController = [[REComposeViewController alloc] init];
+        UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"twitter-bird-dark-bgs.png"]];
+        titleImageView.frame = CGRectMake(0, 0, 110, 40);
+        titleImageView.contentMode = UIViewContentModeScaleAspectFit;
+        composeViewController.navigationItem.titleView = titleImageView;
+        
+        // UIApperance setup
+        //
+        [composeViewController.navigationBar setTintColor:[UIColor colorWithRed:34/255.0 green:158/255.0 blue:213/255.0 alpha:1.0]];
+        composeViewController.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:60/255.0 green:165/255.0 blue:194/255.0 alpha:1];
+        composeViewController.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:29/255.0 green:118/255.0 blue:143/255.0 alpha:1];
+        
+        // Alternative use with REComposeViewControllerCompletionHandler
+        //
+        composeViewController.completionHandler = ^(REComposeViewController *composeViewController, REComposeResult result) {
+            [composeViewController dismissViewControllerAnimated:YES completion:nil];
+            
+            if (result == REComposeResultCancelled) {
+                NSLog(@"Cancelled");
+            }
+            
+            if (result == REComposeResultPosted) {
+                NSLog(@"Text: %@", composeViewController.text);
+            }
+        };
+        
+        [composeViewController presentFromRootViewController];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Cannot reply to that tweet" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+    }
+}
+
 -(void)openTwitterList:(NSArray *)items andTitle:(NSString *)string {
     UIViewController<DPTweetsDisplay> *tweets = [DPTweetsListViewController controllerForTweets:items];
     ((DPTwitterTableDataSource *)tweets.datasource).delegate = self;
@@ -146,6 +182,9 @@
                 [self presentViewController:webBrowser];
                 handled = YES;
             }
+            break;
+        case DPTweetActionReply:
+            [self replyToTweet:tweetId];
             break;
         default:
             break;

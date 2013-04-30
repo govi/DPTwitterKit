@@ -16,3 +16,6 @@
 [submodule "submodules/SVProgressHUD"]
 	path = submodules/SVProgressHUD
 	url = https://github.com/samvermette/SVProgressHUD.git
+[submodule "submodules/REComposeViewController"]
+	path = submodules/REComposeViewController
+	url = https://github.com/romaonthego/REComposeViewController.git
