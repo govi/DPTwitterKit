@@ -22,7 +22,7 @@
 -(id) init {
     self = [super init];
     if(self) {
-        tweetsCache = [[NSCache alloc] init];
+        tweetsCache = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -42,7 +42,10 @@
 }
 
 -(NSDictionary *)tweetWithId:(NSString *)idString {
-    return [tweetsCache objectForKey:idString];
+    id obj = [tweetsCache objectForKey:idString];
+    if(obj == NULL)
+        NSLog(@"%@", idString);
+    return obj;
 }
 
 -(void)updateTweet:(NSDictionary *)dict byId:(NSString *)idString {

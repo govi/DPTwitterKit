@@ -9,6 +9,7 @@
 #import "DPTweetViewCell.h"
 #import "STTweetLabel.h"
 #import "UIImageView+WebCache.h"
+#import "NSDictionary+Extensions.h"
 
 static NSDateFormatter *formatter;
 static NSDateFormatter *reader;
@@ -110,12 +111,20 @@ static NSDateFormatter *reader;
     }
     else
         self.favCount.text = @"";
+    self.followButton.selected = [[tweet nullsafeValueForKeyPath:@"user.follow_request_sent"] boolValue] || [[tweet nullsafeValueForKeyPath:@"user.following"] boolValue];
+    if(self.followButton.selected) {
+        [self.followButton setImage:[UIImage imageNamed:@"twitter-bird-white-on-blue.png"] forState:UIControlStateNormal];
+        [self.followButton setImage:[UIImage imageNamed:@"twitter-bird-white-on-blue.png"] forState:UIControlStateHighlighted];
+    } else {
+        [self.followButton setImage:[UIImage imageNamed:@"twitter-bird-light-bgs.png"] forState:UIControlStateNormal];
+        [self.followButton setImage:[UIImage imageNamed:@"twitter-bird-light-bgs.png"] forState:UIControlStateHighlighted];
+    }
     [self.avatar setImageWithURL:[NSURL URLWithString:[tweet valueForKeyPath:@"user.profile_image_url"]]];
 }
 
 - (IBAction)followPressed:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
-        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionFollow item:[self.tweet valueForKeyPath:@"user.id_str"]];
+        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionFollow item:[self.tweet valueForKeyPath:@"user.screen_name"]];
 }
 
 - (IBAction)replyPressed:(id)sender {

@@ -12,6 +12,8 @@
 #import "DPTwitterTableDataSource.h"
 #import "TSMiniWebBrowser.h"
 #import "DPTweetsCache.h"
+#import "SVProgressHUD.h"
+#import "NSDictionary+Extensions.h"
 
 @implementation DPTwitterService
 
@@ -56,9 +58,12 @@
 }
 
 -(void)search:(NSString *)searchString {
+    [SVProgressHUD show];
     [self.wrapper getSearchTweetsWithQuery:searchString successBlock:^(NSDictionary *response) {
         [self openTwitterList:[[DPTweetsCache sharedCache] addTweets:[response objectForKey:@"statuses"]] andTitle:searchString];
+        [SVProgressHUD dismiss];
     } errorBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
         NSLog(@"Search Error: %@", [error localizedDescription]);
     }];
 }
@@ -79,6 +84,22 @@
     }];
 }
 
+-(void)follow:(NSString *)user forTweet:(NSString *)tweet {
+    [self.wrapper postFollow:user successBlock:^(NSDictionary *user) {
+        [self refreshTweet:tweet];
+    } errorBlock:^(NSError *error) {
+        NSLog(@"follow error: %@", [error localizedDescription]);
+    }];
+}
+
+-(void)unfollow:(NSString *)user forTweet:(NSString *)tweet {
+    [self.wrapper postUnfollow:user successBlock:^(NSDictionary *user) {
+        [self refreshTweet:tweet];
+    } errorBlock:^(NSError *error) {
+        NSLog(@"unfollow error: %@", [error localizedDescription]);
+    }];
+}
+
 -(void)refreshTweet:(NSString *)idString {
     [self.wrapper getStatusWithID:idString successBlock:^(NSDictionary *status) {
         [[DPTweetsCache sharedCache] updateTweet:status byId:idString];
@@ -93,7 +114,7 @@
     ((DPTwitterTableDataSource *)tweets.datasource).delegate = self;
     tweets.navigationItem.title = string;
     [[NSNotificationCenter defaultCenter] postNotificationName:kDPTweetsUpdatedNotification object:nil];
-    [self performSelector:@selector(presentViewController:) withObject:tweets afterDelay:0.5];//cache takes a while to propogate. 
+    [self presentViewController:tweets];
 }
 
 -(BOOL)tweet:(NSString *)tweetId action:(DPTweetAction)action item:(NSString *)string {
@@ -111,8 +132,13 @@
         case DPTweetActionFavourite:
             [self favourite:[string boolValue] forId:tweetId];
             break;
-        case DPTweetActionFollow:
-            
+        case DPTweetActionFollow: {
+            NSDictionary *tweet = [[DPTweetsCache sharedCache] tweetWithId:tweetId];
+            if([[tweet nullsafeValueForKeyPath:@"user.follow_request_sent"] boolValue] || [[tweet nullsafeValueForKeyPath:@"user.following"] boolValue])
+                [self unfollow:string forTweet:tweetId];
+            else
+                [self follow:string forTweet:tweetId];
+        }
             break;
         case DPTweetActionWeblink:
             if (!handled) {

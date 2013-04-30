@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		977CCB83172ACC5A00C3FF6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977CCB82172ACC5A00C3FF6A /* UIKit.framework */; };
 		977CCB85172ACC5A00C3FF6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977CCB84172ACC5A00C3FF6A /* Foundation.framework */; };
-		977CCB87172ACC5A00C3FF6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977CCB86172ACC5A00C3FF6A /* CoreGraphics.framework */; };
 		977CCB8D172ACC5A00C3FF6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 977CCB8B172ACC5A00C3FF6A /* InfoPlist.strings */; };
 		977CCB8F172ACC5A00C3FF6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 977CCB8E172ACC5A00C3FF6A /* main.m */; };
 		977CCB93172ACC5A00C3FF6A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 977CCB92172ACC5A00C3FF6A /* AppDelegate.m */; };
@@ -68,6 +67,12 @@
 		97EA60F5172FF5770003CFF0 /* DPTwitterTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA60F4172FF5760003CFF0 /* DPTwitterTableDataSource.m */; };
 		97EA60F8172FF5A20003CFF0 /* DPTwitterTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA60F7172FF5A10003CFF0 /* DPTwitterTableDelegate.m */; };
 		97EA60FD173014D80003CFF0 /* DPTweetsCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA60FC173014D70003CFF0 /* DPTweetsCache.m */; };
+		97EA610217303ACF0003CFF0 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 97EA60FF17303ACF0003CFF0 /* SVProgressHUD.bundle */; };
+		97EA610317303ACF0003CFF0 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA610117303ACF0003CFF0 /* SVProgressHUD.m */; };
+		97EA610417303B6D0003CFF0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97EA60B6172EBB160003CFF0 /* QuartzCore.framework */; };
+		97EA610517303B800003CFF0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977CCB86172ACC5A00C3FF6A /* CoreGraphics.framework */; };
+		97EA6107173040BA0003CFF0 /* twitter-bird-white-on-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 97EA6106173040B90003CFF0 /* twitter-bird-white-on-blue.png */; };
+		97EA610A173044300003CFF0 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA61091730442E0003CFF0 /* NSDictionary+Extensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +176,12 @@
 		97EA60FA173011BB0003CFF0 /* DPTweetsDisplay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPTweetsDisplay.h; sourceTree = "<group>"; };
 		97EA60FB173014D70003CFF0 /* DPTweetsCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTweetsCache.h; sourceTree = "<group>"; };
 		97EA60FC173014D70003CFF0 /* DPTweetsCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTweetsCache.m; sourceTree = "<group>"; };
+		97EA60FF17303ACF0003CFF0 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		97EA610017303ACF0003CFF0 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		97EA610117303ACF0003CFF0 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		97EA6106173040B90003CFF0 /* twitter-bird-white-on-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "twitter-bird-white-on-blue.png"; sourceTree = "<group>"; };
+		97EA61081730442D0003CFF0 /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
+		97EA61091730442E0003CFF0 /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,13 +189,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97EA610517303B800003CFF0 /* CoreGraphics.framework in Frameworks */,
+				97EA610417303B6D0003CFF0 /* QuartzCore.framework in Frameworks */,
 				97EA60BD172EBB950003CFF0 /* MapKit.framework in Frameworks */,
 				97EA60BB172EBB630003CFF0 /* ImageIO.framework in Frameworks */,
 				977CCBA8172AD01D00C3FF6A /* Accounts.framework in Frameworks */,
 				977CCBA6172ACD6300C3FF6A /* Twitter.framework in Frameworks */,
 				977CCB83172ACC5A00C3FF6A /* UIKit.framework in Frameworks */,
 				977CCB85172ACC5A00C3FF6A /* Foundation.framework in Frameworks */,
-				977CCB87172ACC5A00C3FF6A /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +261,8 @@
 				97EA60FA173011BB0003CFF0 /* DPTweetsDisplay.h */,
 				97EA60FB173014D70003CFF0 /* DPTweetsCache.h */,
 				97EA60FC173014D70003CFF0 /* DPTweetsCache.m */,
+				97EA61081730442D0003CFF0 /* NSDictionary+Extensions.h */,
+				97EA61091730442E0003CFF0 /* NSDictionary+Extensions.m */,
 			);
 			path = TwitterTest;
 			sourceTree = "<group>";
@@ -256,6 +270,7 @@
 		977CCB89172ACC5A00C3FF6A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				97EA60FE17303ACE0003CFF0 /* SVProgressHUD */,
 				97EA60D1172FC7380003CFF0 /* STTwitter */,
 				97EA60BE172ECEA70003CFF0 /* TSMiniWebBrowser */,
 				97EA6090172EBA360003CFF0 /* SDWebImage */,
@@ -263,6 +278,7 @@
 				97EA6045172AE2C10003CFF0 /* retweet_on.png */,
 				97EA6046172AE2C10003CFF0 /* retweet_hover.png */,
 				97EA6047172AE2C10003CFF0 /* retweet.png */,
+				97EA6106173040B90003CFF0 /* twitter-bird-white-on-blue.png */,
 				97EA6048172AE2C10003CFF0 /* reply_hover.png */,
 				97EA6049172AE2C10003CFF0 /* reply.png */,
 				97EA604A172AE2C10003CFF0 /* favorite_on.png */,
@@ -381,6 +397,17 @@
 			path = Vendor;
 			sourceTree = "<group>";
 		};
+		97EA60FE17303ACE0003CFF0 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				97EA60FF17303ACF0003CFF0 /* SVProgressHUD.bundle */,
+				97EA610017303ACF0003CFF0 /* SVProgressHUD.h */,
+				97EA610117303ACF0003CFF0 /* SVProgressHUD.m */,
+			);
+			name = SVProgressHUD;
+			path = submodules/SVProgressHUD/SVProgressHUD;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -455,6 +482,8 @@
 				97EA60CD172ECEA80003CFF0 /* reload_icon.png in Resources */,
 				97EA60CE172ECEA80003CFF0 /* reload_icon@2x.png in Resources */,
 				97EA60D0172ECEA80003CFF0 /* TSMiniWebBrowser.xib in Resources */,
+				97EA610217303ACF0003CFF0 /* SVProgressHUD.bundle in Resources */,
+				97EA6107173040BA0003CFF0 /* twitter-bird-white-on-blue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +525,8 @@
 				97EA60F5172FF5770003CFF0 /* DPTwitterTableDataSource.m in Sources */,
 				97EA60F8172FF5A20003CFF0 /* DPTwitterTableDelegate.m in Sources */,
 				97EA60FD173014D80003CFF0 /* DPTweetsCache.m in Sources */,
+				97EA610317303ACF0003CFF0 /* SVProgressHUD.m in Sources */,
+				97EA610A173044300003CFF0 /* NSDictionary+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

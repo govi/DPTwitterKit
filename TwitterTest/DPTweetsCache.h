@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface DPTweetsCache : NSObject {
-    NSCache *tweetsCache;
+    NSMutableDictionary *tweetsCache;
 }
 
 +(DPTweetsCache *)sharedCache;
