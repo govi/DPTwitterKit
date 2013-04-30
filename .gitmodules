@@ -13,3 +13,6 @@
 [submodule "submodules/STTwitter"]
 	path = submodules/STTwitter
 	url = git@github.com:govi/STTwitter.git
+[submodule "submodules/SVProgressHUD"]
+	path = submodules/SVProgressHUD
+	url = https://github.com/samvermette/SVProgressHUD.git
