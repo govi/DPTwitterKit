@@ -8,6 +8,8 @@
 
 #import "DPTwitterTableDataSource.h"
 #import "TSMiniWebBrowser.h"
+#import "DPTwitterService.h"
+#import "DPTweetViewCell.h"
 
 @implementation DPTwitterTableDataSource
 
@@ -36,56 +38,25 @@
     return [_tweets count];
 }
 
--(void)followPressed:(NSString *)userId {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(followPressed:)]) {
-        [self.delegate followPressed:userId];
+-(BOOL)action:(DPTweetAction)action item:(NSString *)string {
+    BOOL handled = NO;
+    if(self.delegate && [self.delegate respondsToSelector:@selector(action:item:)])
+        handled = [self.delegate action:action item:string];
+    switch (action) {
+        case DPTweetActionWeblink:
+            if (!handled) {
+                TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:string]];
+                if(self.delegate && [self.delegate respondsToSelector:@selector(presentViewController:)]) {
+                    [self.delegate presentViewController:webBrowser];
+                    handled = YES;
+                }
+            }
+            break;
+        default:
+            
+            break;
     }
-}
-
--(void)replyPressed:(NSString *)tweetId {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(replyPressed:)]) {
-        [self.delegate replyPressed:tweetId];
-    }
-}
-
--(void)retweetPressed:(NSString *)tweetId {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(retweetPressed:)]) {
-        [self.delegate retweetPressed:tweetId];
-    }
-}
-
--(void)favouritePressed:(NSString *)tweetId {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(favouritePressed:)]) {
-        [self.delegate favouritePressed:tweetId];
-    }
-}
-
--(void)authorPressed:(NSString *)userId {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(authorPressed:)]) {
-        [self.delegate authorPressed:userId];
-    }
-}
-
--(void)mentionsOpened:(NSString *)username {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(mentionsOpened:)]) {
-        [self.delegate mentionsOpened:username];
-    }
-}
-
--(void)weblinkOpened:(NSString *)link {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(weblinkOpened:)]) {
-        [self.delegate weblinkOpened:link];
-    } else {
-        TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:link]];
-        if(self.delegate && [self.delegate respondsToSelector:@selector(presentViewController:)])
-            [self.delegate presentViewController:webBrowser];
-    }
-}
-
--(void)hashtagOpened:(NSString *)hashtag {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(hashtagOpened:)]) {
-        [self.delegate hashtagOpened:hashtag];
-    }
+    return handled;
 }
 
 @end

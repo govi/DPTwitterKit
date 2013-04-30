@@ -34,7 +34,6 @@
 		97EA6087172E8BED0003CFF0 /* STTweetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA6086172E8BED0003CFF0 /* STTweetLabel.m */; };
 		97EA608B172E99F60003CFF0 /* DPTweetsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA6089172E99F60003CFF0 /* DPTweetsListViewController.m */; };
 		97EA608C172E99F60003CFF0 /* DPTweetsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97EA608A172E99F60003CFF0 /* DPTweetsListViewController.xib */; };
-		97EA608F172EA15A0003CFF0 /* DPTwitterAccountSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA608E172EA15A0003CFF0 /* DPTwitterAccountSelector.m */; };
 		97EA60AA172EBA360003CFF0 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA6092172EBA360003CFF0 /* MKAnnotationView+WebCache.m */; };
 		97EA60AB172EBA360003CFF0 /* NSData+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA6094172EBA360003CFF0 /* NSData+GIF.m */; };
 		97EA60AC172EBA360003CFF0 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA6096172EBA360003CFF0 /* SDImageCache.m */; };
@@ -106,8 +105,6 @@
 		97EA6088172E99F60003CFF0 /* DPTweetsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTweetsListViewController.h; sourceTree = "<group>"; };
 		97EA6089172E99F60003CFF0 /* DPTweetsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTweetsListViewController.m; sourceTree = "<group>"; };
 		97EA608A172E99F60003CFF0 /* DPTweetsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DPTweetsListViewController.xib; sourceTree = "<group>"; };
-		97EA608D172EA15A0003CFF0 /* DPTwitterAccountSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTwitterAccountSelector.h; sourceTree = "<group>"; };
-		97EA608E172EA15A0003CFF0 /* DPTwitterAccountSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTwitterAccountSelector.m; sourceTree = "<group>"; };
 		97EA6091172EBA360003CFF0 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		97EA6092172EBA360003CFF0 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		97EA6093172EBA360003CFF0 /* NSData+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+GIF.h"; sourceTree = "<group>"; };
@@ -169,6 +166,7 @@
 		97EA60F4172FF5760003CFF0 /* DPTwitterTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTwitterTableDataSource.m; sourceTree = "<group>"; };
 		97EA60F6172FF5A00003CFF0 /* DPTwitterTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTwitterTableDelegate.h; sourceTree = "<group>"; };
 		97EA60F7172FF5A10003CFF0 /* DPTwitterTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTwitterTableDelegate.m; sourceTree = "<group>"; };
+		97EA60F9173006D50003CFF0 /* DPTweetDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPTweetDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,14 +235,13 @@
 				97EA6088172E99F60003CFF0 /* DPTweetsListViewController.h */,
 				97EA6089172E99F60003CFF0 /* DPTweetsListViewController.m */,
 				97EA608A172E99F60003CFF0 /* DPTweetsListViewController.xib */,
-				97EA608D172EA15A0003CFF0 /* DPTwitterAccountSelector.h */,
-				97EA608E172EA15A0003CFF0 /* DPTwitterAccountSelector.m */,
 				97EA60EA172FCFC80003CFF0 /* DPTwitterService.h */,
 				97EA60EB172FCFC80003CFF0 /* DPTwitterService.m */,
 				97EA60F3172FF5760003CFF0 /* DPTwitterTableDataSource.h */,
 				97EA60F4172FF5760003CFF0 /* DPTwitterTableDataSource.m */,
 				97EA60F6172FF5A00003CFF0 /* DPTwitterTableDelegate.h */,
 				97EA60F7172FF5A10003CFF0 /* DPTwitterTableDelegate.m */,
+				97EA60F9173006D50003CFF0 /* DPTweetDelegate.h */,
 			);
 			path = TwitterTest;
 			sourceTree = "<group>";
@@ -467,7 +464,6 @@
 				97EA6059172AE4330003CFF0 /* DPTweetViewCell.m in Sources */,
 				97EA6087172E8BED0003CFF0 /* STTweetLabel.m in Sources */,
 				97EA608B172E99F60003CFF0 /* DPTweetsListViewController.m in Sources */,
-				97EA608F172EA15A0003CFF0 /* DPTwitterAccountSelector.m in Sources */,
 				97EA60AA172EBA360003CFF0 /* MKAnnotationView+WebCache.m in Sources */,
 				97EA60AB172EBA360003CFF0 /* NSData+GIF.m in Sources */,
 				97EA60AC172EBA360003CFF0 /* SDImageCache.m in Sources */,

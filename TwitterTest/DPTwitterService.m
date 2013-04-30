@@ -8,6 +8,8 @@
 
 #import "DPTwitterService.h"
 #import "STTwitterAPIWrapper.h"
+#import "DPTweetsListViewController.h"
+#import "DPTwitterTableDataSource.h"
 
 @implementation DPTwitterService
 
@@ -45,6 +47,43 @@
         }];
     }
     return _wrapper;
+}
+
+-(void)registerController:(UIViewController *)c {
+    controller = c;
+}
+
+-(void)search:(NSString *)searchString {
+    [[DPTwitterService sharedService].wrapper getSearchTweetsWithQuery:searchString successBlock:^(NSDictionary *response) {
+        [self performSelectorOnMainThread:@selector(openTwitterList:) withObject:[response objectForKey:@"statuses"] waitUntilDone:NO];
+    } errorBlock:^(NSError *error) {
+        NSLog(@"Request Error: %@", [error localizedDescription]);
+    }];
+}
+
+-(void)openTwitterList:(NSArray *)items {
+    DPTweetsListViewController *tweets = [DPTweetsListViewController controllerForTweets:items];
+    ((DPTwitterTableDataSource *)tweets.datasource).delegate = self;
+    [self presentViewController:tweets];
+}
+
+-(BOOL)action:(DPTweetAction)action item:(NSString *)string {
+    BOOL handled = NO;
+    switch (action) {
+        case DPTweetActionMentions:
+        case DPTweetActionHashtag:
+            [self search:string];
+            handled = YES;
+            break;
+        default:
+            break;
+    }
+    return handled;
+}
+
+-(void)presentViewController:(UIViewController *)c {
+    if(controller)
+        [controller.navigationController pushViewController:c animated:YES];
 }
 
 @end

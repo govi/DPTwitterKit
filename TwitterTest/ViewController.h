@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController<UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *searchSegment;
 @property (weak, nonatomic) IBOutlet UITextField *searchBox;
 
 - (IBAction)searchPressed:(id)sender;

@@ -7,23 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DPTweetDelegate.h"
 
 @class STTweetLabel;
-
-@protocol DPTweetViewCellDelegate <NSObject>
-
-@optional
--(void)followPressed:(NSString *)userId;
--(void)replyPressed:(NSString *)tweetId;
--(void)retweetPressed:(NSString *)tweetId;
--(void)favouritePressed:(NSString *)tweetId;
--(void)authorPressed:(NSString *)userId;
--(void)mentionsOpened:(NSString *)username;
--(void)weblinkOpened:(NSString *)link;
--(void)hashtagOpened:(NSString *)hashtag;
-
-@end
-
 
 @interface DPTweetViewCell : UITableViewCell
 
@@ -38,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *favouriteButton;
 @property (weak, nonatomic) IBOutlet UILabel *rtCount;
 @property (weak, nonatomic) IBOutlet UILabel *favCount;
-@property (weak, nonatomic) id <DPTweetViewCellDelegate> delegate;
+@property (weak, nonatomic) id <DPTweetDelegate> delegate;
 @property (strong, nonatomic) NSDictionary *tweet;
 
 - (IBAction)followPressed:(id)sender;

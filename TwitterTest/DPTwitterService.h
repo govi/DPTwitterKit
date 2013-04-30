@@ -7,13 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DPTwitterTableDataSource.h"
 
 @class STTwitterAPIWrapper;
 
-@interface DPTwitterService : NSObject
+@interface DPTwitterService : NSObject <DPTweetDelegate> {
+    UIViewController *controller;
+}
 
 @property (nonatomic, strong) STTwitterAPIWrapper *wrapper;
 
 +(DPTwitterService *)sharedService;
+-(void)registerController:(UIViewController *)c;
+-(void)search:(NSString *)searchString;
 
 @end
