@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Accounts/Accounts.h>
+#import "DPTweetsListViewController.h"
 
-@interface ViewController : UIViewController<UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : UIViewController<UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate, DPTweetViewControllerDelegate>
 
-@property (nonatomic, strong) ACAccount *currentAccount;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *searchSegment;
 @property (weak, nonatomic) IBOutlet UITextField *searchBox;
 
