@@ -124,9 +124,12 @@ static NSDateFormatter *reader;
 }
 
 - (IBAction)retweetPressed:(id)sender {
-    
-    if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
-        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionRetweet item:[self.tweet valueForKeyPath:@"id_str"]];
+    BOOL retweeted = [[self.tweet objectForKey:@"retweeted"] boolValue];
+    if(retweeted) {
+        [[[UIAlertView alloc] initWithTitle:@"You have already retweeted this status." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"Do you want to retweet this status?" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] show];
+    }
 }
 
 - (IBAction)favouritePressed:(id)sender {
@@ -137,6 +140,13 @@ static NSDateFormatter *reader;
 - (IBAction)authorPressed:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
         [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionAuthor item:[self.tweet valueForKeyPath:@"user.id_str"]];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex != alertView.cancelButtonIndex) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
+            [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionRetweet item:[self.tweet valueForKeyPath:@"id_str"]];
+    }
 }
 
 @end
