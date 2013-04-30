@@ -124,13 +124,14 @@ static NSDateFormatter *reader;
 }
 
 - (IBAction)retweetPressed:(id)sender {
+    
     if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
         [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionRetweet item:[self.tweet valueForKeyPath:@"id_str"]];
 }
 
 - (IBAction)favouritePressed:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
-        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionFavourite item:[self.tweet valueForKeyPath:@"id_str"]];
+        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionFavourite item:[NSString stringWithFormat:@"%d", ![[self.tweet objectForKey:@"favorited"] boolValue]]];
 }
 
 - (IBAction)authorPressed:(id)sender {

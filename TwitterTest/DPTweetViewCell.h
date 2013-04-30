@@ -11,7 +11,7 @@
 
 @class STTweetLabel;
 
-@interface DPTweetViewCell : UITableViewCell
+@interface DPTweetViewCell : UITableViewCell <UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *authorName;

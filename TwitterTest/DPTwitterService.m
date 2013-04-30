@@ -109,7 +109,7 @@
             handled = YES;
             break;
         case DPTweetActionFavourite:
-            //[self favourite:[string boolValue] forId:tweetId];
+            [self favourite:[string boolValue] forId:tweetId];
             break;
         case DPTweetActionFollow:
             
