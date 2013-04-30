@@ -15,6 +15,7 @@
 @end
 
 @implementation DPTweetsListViewController
+@synthesize datasource, delegate;
 
 +(DPTweetsListViewController *)controllerForTweets:(NSArray *)array {
     DPTweetsListViewController *twController = [[DPTweetsListViewController alloc] init];
@@ -35,9 +36,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.listView.dataSource = _datasource;
-    self.listView.delegate =_delegate;
+    self.listView.dataSource = self.datasource;
+    self.listView.delegate = self.delegate;
     // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self.listView selector:@selector(reloadData) name:kDPTweetsUpdatedNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning

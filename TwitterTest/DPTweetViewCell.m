@@ -52,20 +52,20 @@ static NSDateFormatter *reader;
         switch (actionType) {
                 // if the user clicked on an account (@_max_k)
             case STLinkActionTypeAccount:
-                if(self.delegate && [self.delegate respondsToSelector:@selector(action:item:)])
-                    [self.delegate action:DPTweetActionMentions item:link];
+                if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
+                    [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionMentions item:link];
                 break;
                 
                 // if the user clicked on a hashtag (#thisisreallycool)
             case STLinkActionTypeHashtag:
-                if(self.delegate && [self.delegate respondsToSelector:@selector(action:item:)])
-                    [self.delegate action:DPTweetActionHashtag item:link];
+                if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
+                    [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionHashtag item:link];
                 break;
                 
                 // if the user clicked on a website (http://github.com/SebastienThiebaud)
             case STLinkActionTypeWebsite:
-                if(self.delegate && [self.delegate respondsToSelector:@selector(action:item:)])
-                    [self.delegate action:DPTweetActionWeblink item:link];
+                if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
+                    [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionWeblink item:link];
                 break;
         }
     }];
@@ -114,28 +114,28 @@ static NSDateFormatter *reader;
 }
 
 - (IBAction)followPressed:(id)sender {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(action:item:)])
-        [self.delegate action:DPTweetActionFollow item:[self.tweet valueForKeyPath:@"user.id_str"]];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
+        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionFollow item:[self.tweet valueForKeyPath:@"user.id_str"]];
 }
 
 - (IBAction)replyPressed:(id)sender {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(action:item:)])
-        [self.delegate action:DPTweetActionReply item:[self.tweet valueForKeyPath:@"id_str"]];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
+        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionReply item:[self.tweet valueForKeyPath:@"id_str"]];
 }
 
 - (IBAction)retweetPressed:(id)sender {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(action:item:)])
-        [self.delegate action:DPTweetActionRetweet item:[self.tweet valueForKeyPath:@"id_str"]];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
+        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionRetweet item:[self.tweet valueForKeyPath:@"id_str"]];
 }
 
 - (IBAction)favouritePressed:(id)sender {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(action:item:)])
-        [self.delegate action:DPTweetActionFavourite item:[self.tweet valueForKeyPath:@"id_str"]];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
+        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionFavourite item:[self.tweet valueForKeyPath:@"id_str"]];
 }
 
 - (IBAction)authorPressed:(id)sender {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(action:item:)])
-        [self.delegate action:DPTweetActionAuthor item:[self.tweet valueForKeyPath:@"user.id_str"]];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
+        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionAuthor item:[self.tweet valueForKeyPath:@"user.id_str"]];
 }
 
 @end

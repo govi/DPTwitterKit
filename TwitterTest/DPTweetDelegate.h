@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define kDPTweetsAvailableNotification @"new tweets"
+#define kDPTweetsUpdatedNotification @"new tweets"
+
 typedef enum {
     DPTweetActionFollow,
     DPTweetActionReply,
@@ -19,9 +22,11 @@ typedef enum {
     DPTweetActionHashtag
 } DPTweetAction;
 
+@class DPTwitterTableDataSource;
+
 @protocol DPTweetDelegate <NSObject>
 
--(BOOL)action:(DPTweetAction)action item:(NSString *)string;
+-(BOOL)tweet:(NSString *)tweetId action:(DPTweetAction)action item:(NSString *)string;
 
 @optional
 -(void)presentViewController:(UIViewController *)controller;

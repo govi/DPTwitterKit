@@ -11,7 +11,7 @@
 #import "DPTweetDelegate.h"
 
 
-@interface DPTwitterTableDataSource : NSObject <UITableViewDataSource, DPTweetDelegate>
+@interface DPTwitterTableDataSource : NSObject <UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray *tweets;
 @property (weak, nonatomic) id<DPTweetDelegate> delegate;

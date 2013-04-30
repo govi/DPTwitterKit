@@ -7,9 +7,8 @@
 //
 
 #import "DPTwitterTableDataSource.h"
-#import "TSMiniWebBrowser.h"
-#import "DPTwitterService.h"
 #import "DPTweetViewCell.h"
+#import "DPTweetsCache.h"
 
 @implementation DPTwitterTableDataSource
 
@@ -27,10 +26,15 @@
     DPTweetViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DPTweetViewCell"];
     if(!cell) {
         cell = [DPTweetViewCell newCell];
-        cell.delegate = self;
+        cell.delegate = self.delegate;
     }
-    NSDictionary *tweet = [_tweets objectAtIndex:indexPath.row];
-    [cell displayTweet:tweet];
+    NSString *tweetId = [_tweets objectAtIndex:indexPath.row];
+    NSDictionary *tweet = nil;
+    if(tweetId)
+        tweet = [[DPTweetsCache sharedCache] tweetWithId:tweetId];
+    if (tweet) {
+        [cell displayTweet:tweet];
+    }
     return cell;
 }
 
@@ -38,25 +42,8 @@
     return [_tweets count];
 }
 
--(BOOL)action:(DPTweetAction)action item:(NSString *)string {
-    BOOL handled = NO;
-    if(self.delegate && [self.delegate respondsToSelector:@selector(action:item:)])
-        handled = [self.delegate action:action item:string];
-    switch (action) {
-        case DPTweetActionWeblink:
-            if (!handled) {
-                TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:string]];
-                if(self.delegate && [self.delegate respondsToSelector:@selector(presentViewController:)]) {
-                    [self.delegate presentViewController:webBrowser];
-                    handled = YES;
-                }
-            }
-            break;
-        default:
-            
-            break;
-    }
-    return handled;
+-(void)dealloc {
+    [[DPTweetsCache sharedCache] removeTweetsById:self.tweets];
 }
 
 @end

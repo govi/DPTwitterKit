@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DPTweetsDisplay.h"
 
-@interface DPTweetsListViewController : UIViewController
+@interface DPTweetsListViewController : UIViewController<DPTweetsDisplay>
 
 @property (weak, nonatomic) IBOutlet UITableView *listView;
-@property (strong, nonatomic) id<UITableViewDelegate> delegate;
-@property (strong, nonatomic) id<UITableViewDataSource> datasource;
 
-+(DPTweetsListViewController *)controllerForTweets:(NSArray *)array;
 
 @end

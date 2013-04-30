@@ -10,6 +10,8 @@
 #import "STTwitterAPIWrapper.h"
 #import "DPTweetsListViewController.h"
 #import "DPTwitterTableDataSource.h"
+#import "TSMiniWebBrowser.h"
+#import "DPTweetsCache.h"
 
 @implementation DPTwitterService
 
@@ -54,26 +56,70 @@
 }
 
 -(void)search:(NSString *)searchString {
-    [[DPTwitterService sharedService].wrapper getSearchTweetsWithQuery:searchString successBlock:^(NSDictionary *response) {
-        [self performSelectorOnMainThread:@selector(openTwitterList:) withObject:[response objectForKey:@"statuses"] waitUntilDone:NO];
+    [self.wrapper getSearchTweetsWithQuery:searchString successBlock:^(NSDictionary *response) {
+        [self openTwitterList:[[DPTweetsCache sharedCache] addTweets:[response objectForKey:@"statuses"]] andTitle:searchString];
     } errorBlock:^(NSError *error) {
-        NSLog(@"Request Error: %@", [error localizedDescription]);
+        NSLog(@"Search Error: %@", [error localizedDescription]);
     }];
 }
 
--(void)openTwitterList:(NSArray *)items {
-    DPTweetsListViewController *tweets = [DPTweetsListViewController controllerForTweets:items];
-    ((DPTwitterTableDataSource *)tweets.datasource).delegate = self;
-    [self presentViewController:tweets];
+-(void)retweet:(NSString *)idString {
+    [self.wrapper postStatusRetweetWithID:idString successBlock:^(NSDictionary *status) {
+        [self refreshTweet:idString];
+    } errorBlock:^(NSError *error) {
+        NSLog(@"Retweet Error: %@", [error localizedDescription]);
+    }];
 }
 
--(BOOL)action:(DPTweetAction)action item:(NSString *)string {
+-(void)favourite:(BOOL)state forId:(NSString *)idString {
+    [self.wrapper postFavoriteState:state forStatusID:idString successBlock:^(NSDictionary *status) {
+        [self refreshTweet:idString];
+    } errorBlock:^(NSError *error) {
+        NSLog(@"favourite error: %@", [error localizedDescription]);
+    }];
+}
+
+-(void)refreshTweet:(NSString *)idString {
+    [self.wrapper getStatusWithID:idString successBlock:^(NSDictionary *status) {
+        [[DPTweetsCache sharedCache] updateTweet:status byId:idString];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDPTweetsUpdatedNotification object:nil];
+    } errorBlock:^(NSError *error) {
+        NSLog(@"refresh Error : %@", [error localizedDescription]);
+    }];
+}
+
+-(void)openTwitterList:(NSArray *)items andTitle:(NSString *)string {
+    UIViewController<DPTweetsDisplay> *tweets = [DPTweetsListViewController controllerForTweets:items];
+    ((DPTwitterTableDataSource *)tweets.datasource).delegate = self;
+    tweets.navigationItem.title = string;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDPTweetsUpdatedNotification object:nil];
+    [self performSelector:@selector(presentViewController:) withObject:tweets afterDelay:0.5];//cache takes a while to propogate. 
+}
+
+-(BOOL)tweet:(NSString *)tweetId action:(DPTweetAction)action item:(NSString *)string {
     BOOL handled = NO;
     switch (action) {
         case DPTweetActionMentions:
         case DPTweetActionHashtag:
             [self search:string];
             handled = YES;
+            break;
+        case DPTweetActionRetweet:
+            [self retweet:string];
+            handled = YES;
+            break;
+        case DPTweetActionFavourite:
+            //[self favourite:[string boolValue] forId:tweetId];
+            break;
+        case DPTweetActionFollow:
+            
+            break;
+        case DPTweetActionWeblink:
+            if (!handled) {
+                TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:string]];
+                [self presentViewController:webBrowser];
+                handled = YES;
+            }
             break;
         default:
             break;
