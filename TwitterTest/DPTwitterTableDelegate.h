@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "DPTweetDelegate.h"
 
 @interface DPTwitterTableDelegate : NSObject <UITableViewDelegate>
+
+@property (nonatomic, weak) id<DPTweetDelegate> delegate;
 
 @end

@@ -19,7 +19,8 @@ typedef enum {
     DPTweetActionAuthor,
     DPTweetActionMentions,
     DPTweetActionWeblink,
-    DPTweetActionHashtag
+    DPTweetActionHashtag,
+    DPTweetActionOpenTweet
 } DPTweetAction;
 
 @class DPTwitterTableDataSource;

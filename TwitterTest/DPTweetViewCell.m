@@ -70,7 +70,7 @@ static NSDateFormatter *reader;
                 break;
         }
     }];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.selectionStyle = UITableViewCellSelectionStyleGray;
     
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(authorPressed:)];
     [self.authorName addGestureRecognizer:gesture];
@@ -148,7 +148,7 @@ static NSDateFormatter *reader;
 
 - (IBAction)authorPressed:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
-        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionAuthor item:[self.tweet valueForKeyPath:@"user.id_str"]];
+        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionAuthor item:[self.tweet valueForKeyPath:@"user.screen_name"]];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

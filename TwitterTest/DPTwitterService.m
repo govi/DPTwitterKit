@@ -139,6 +139,7 @@
 -(void)openTwitterList:(NSArray *)items andTitle:(NSString *)string {
     UIViewController<DPTweetsDisplay> *tweets = [DPTweetsListViewController controllerForTweets:items];
     ((DPTwitterTableDataSource *)tweets.datasource).delegate = self;
+    ((DPTwitterTableDataSource *)tweets.delegate).delegate = self;
     tweets.navigationItem.title = string;
     [[NSNotificationCenter defaultCenter] postNotificationName:kDPTweetsUpdatedNotification object:nil];
     [self presentViewController:tweets];
@@ -158,6 +159,7 @@
             break;
         case DPTweetActionFavourite:
             [self favourite:[string boolValue] forId:tweetId];
+            handled = YES;
             break;
         case DPTweetActionFollow: {
             NSDictionary *tweet = [[DPTweetsCache sharedCache] tweetWithId:tweetId];
@@ -166,6 +168,7 @@
             else
                 [self follow:string forTweet:tweetId];
         }
+            handled = YES;
             break;
         case DPTweetActionWeblink:
             if (!handled) {
@@ -176,6 +179,19 @@
             break;
         case DPTweetActionReply:
             [self replyToTweet:tweetId fromAuthor:string];
+            handled = YES;
+            break;
+        case DPTweetActionAuthor: {
+            TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:[NSString stringWithFormat: @"http://m.twitter.com/%@", string]]];
+            [self presentViewController:webBrowser];
+            handled = YES;
+        }
+            break;
+        case DPTweetActionOpenTweet: {
+            TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:[NSString stringWithFormat: @"http://m.twitter.com/%@/statuses/%@", string, tweetId]]];
+            [self presentViewController:webBrowser];
+            handled = YES;
+        }
             break;
         default:
             break;
