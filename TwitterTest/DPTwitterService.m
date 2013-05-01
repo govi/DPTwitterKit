@@ -111,38 +111,29 @@
     }];
 }
 
--(void)replyToTweet:(NSString *)tweetId {
-    if([TWTweetComposeViewController canSendTweet]) {
-        REComposeViewController *composeViewController = [[REComposeViewController alloc] init];
-        UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"twitter-bird-dark-bgs.png"]];
-        titleImageView.frame = CGRectMake(0, 0, 110, 40);
-        titleImageView.contentMode = UIViewContentModeScaleAspectFit;
-        composeViewController.navigationItem.titleView = titleImageView;
-        
-        // UIApperance setup
-        //
-        [composeViewController.navigationBar setTintColor:[UIColor colorWithRed:34/255.0 green:158/255.0 blue:213/255.0 alpha:1.0]];
-        composeViewController.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:60/255.0 green:165/255.0 blue:194/255.0 alpha:1];
-        composeViewController.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:29/255.0 green:118/255.0 blue:143/255.0 alpha:1];
-        
-        // Alternative use with REComposeViewControllerCompletionHandler
-        //
-        composeViewController.completionHandler = ^(REComposeViewController *composeViewController, REComposeResult result) {
-            [composeViewController dismissViewControllerAnimated:YES completion:nil];
-            
-            if (result == REComposeResultCancelled) {
-                NSLog(@"Cancelled");
-            }
-            
-            if (result == REComposeResultPosted) {
-                NSLog(@"Text: %@", composeViewController.text);
-            }
-        };
-        
-        [composeViewController presentFromRootViewController];
-    } else {
-        [[[UIAlertView alloc] initWithTitle:@"Cannot reply to that tweet" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
-    }
+-(void)replyToTweet:(NSString *)tweetId fromAuthor:(NSString *)name {
+    REComposeViewController *composeViewController = [[REComposeViewController alloc] init];
+    composeViewController.text = [NSString stringWithFormat:@"@%@", name];
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"twitter-bird-dark-bgs.png"]];
+    titleImageView.frame = CGRectMake(0, 0, 110, 40);
+    titleImageView.contentMode = UIViewContentModeScaleAspectFit;
+    composeViewController.navigationItem.titleView = titleImageView;
+    [composeViewController.navigationBar setTintColor:[UIColor colorWithRed:34/255.0 green:158/255.0 blue:213/255.0 alpha:1.0]];
+    composeViewController.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:60/255.0 green:165/255.0 blue:194/255.0 alpha:1];
+    composeViewController.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:29/255.0 green:118/255.0 blue:143/255.0 alpha:1];
+    composeViewController.completionHandler = ^(REComposeViewController *composeViewController, REComposeResult result) {
+        [composeViewController dismissViewControllerAnimated:YES completion:nil];
+        if (result == REComposeResultPosted) {
+            [SVProgressHUD showWithStatus:@"Replying"];
+            [self.wrapper postStatusUpdate:composeViewController.text inReplyToStatusID:tweetId placeID:nil lat:nil lon:nil successBlock:^(NSDictionary *status) {
+                [SVProgressHUD showSuccessWithStatus:@"Replied"];
+            } errorBlock:^(NSError *error) {
+                [SVProgressHUD showErrorWithStatus:@"Failed"];
+                NSLog(@"reply Error : %@", [error localizedDescription]);
+            }];
+        }
+    };
+    [composeViewController presentFromRootViewController];
 }
 
 -(void)openTwitterList:(NSArray *)items andTitle:(NSString *)string {
@@ -184,7 +175,7 @@
             }
             break;
         case DPTweetActionReply:
-            [self replyToTweet:tweetId];
+            [self replyToTweet:tweetId fromAuthor:string];
             break;
         default:
             break;

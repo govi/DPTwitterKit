@@ -129,7 +129,7 @@ static NSDateFormatter *reader;
 
 - (IBAction)replyPressed:(id)sender {
     if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
-        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionReply item:[self.tweet valueForKeyPath:@"id_str"]];
+        [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionReply item:[self.tweet valueForKeyPath:@"user.screen_name"]];
 }
 
 - (IBAction)retweetPressed:(id)sender {
