@@ -16,6 +16,7 @@
 #import "NSDictionary+Extensions.h"
 #import <Twitter/Twitter.h>
 #import "REComposeViewController.h"
+#import "DPTweetViewController.h"
 
 @implementation DPTwitterService
 
@@ -172,8 +173,7 @@
             break;
         case DPTweetActionWeblink:
             if (!handled) {
-                TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:string]];
-                [self presentViewController:webBrowser];
+                [self openURL:string];
                 handled = YES;
             }
             break;
@@ -182,14 +182,15 @@
             handled = YES;
             break;
         case DPTweetActionAuthor: {
-            TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:[NSString stringWithFormat: @"http://m.twitter.com/%@", string]]];
-            [self presentViewController:webBrowser];
+            [self openURL:[NSString stringWithFormat: @"http://m.twitter.com/%@", string]];
             handled = YES;
         }
             break;
         case DPTweetActionOpenTweet: {
-            TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:[NSString stringWithFormat: @"http://m.twitter.com/%@/statuses/%@", string, tweetId]]];
-            [self presentViewController:webBrowser];
+            DPTweetViewController *c = [[DPTweetViewController alloc] init];
+            c.tweet = [[DPTweetsCache sharedCache] tweetWithId:tweetId];
+            c.delegate = self;
+            [self presentViewController:c];
             handled = YES;
         }
             break;
@@ -197,6 +198,11 @@
             break;
     }
     return handled;
+}
+
+-(void)openURL:(NSString *)url {
+    TSMiniWebBrowser *webBrowser = [[TSMiniWebBrowser alloc] initWithUrl:[NSURL URLWithString:url]];
+    [self presentViewController:webBrowser];
 }
 
 -(void)presentViewController:(UIViewController *)c {

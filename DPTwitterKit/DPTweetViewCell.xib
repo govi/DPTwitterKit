@@ -179,7 +179,7 @@
 								<string key="NSFrame">{{236, 87}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="294428916"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="147068662"/>
+								<reference key="NSNextKeyView" ref="215716799"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -215,7 +215,7 @@
 								<string key="NSFrame">{{201, 87}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="294428916"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="215716799"/>
+								<reference key="NSNextKeyView" ref="957654553"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -244,6 +244,7 @@
 								<string key="NSFrame">{{274, 86}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="294428916"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="741341581"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -305,7 +306,7 @@
 								<string key="NSFrame">{{253, 89}, {20, 12}}</string>
 								<reference key="NSSuperview" ref="294428916"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="957654553"/>
+								<reference key="NSNextKeyView" ref="147068662"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -333,6 +334,7 @@
 								<string key="NSFrame">{{292, 89}, {20, 12}}</string>
 								<reference key="NSSuperview" ref="294428916"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>

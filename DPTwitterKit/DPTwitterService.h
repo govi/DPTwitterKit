@@ -20,5 +20,6 @@
 +(DPTwitterService *)sharedService;
 -(void)registerController:(UIViewController *)c;
 -(void)search:(NSString *)searchString;
+-(void)openURL:(NSString *)url;
 
 @end
