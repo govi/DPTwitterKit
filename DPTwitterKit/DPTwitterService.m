@@ -255,7 +255,7 @@
             author.delegate = self;
             author.navigationItem.title = [user objectForKey:@"name"];
             author.datasource = [[DPTwitterTableDataSource alloc] init];
-            [self search:[user objectForKey:@"screen_name"] forController:author];
+            [self timeline:[user objectForKey:@"screen_name"] forController:author];
             [self presentViewController:author];
             handled = YES;
         }
