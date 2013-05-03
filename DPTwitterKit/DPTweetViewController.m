@@ -54,21 +54,6 @@ static NSDateFormatter *reader;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)dealloc {
-    [_thumbnail release];
-    [_authorName release];
-    [_authorUsername release];
-    [_followButton release];
-    [_timestamp release];
-    [_tweet release];
-    [_replyButton release];
-    [_retweetButton release];
-    [_favouriteButton release];
-    [_separatorView release];
-    [_descriptionText release];
-    [_containerView release];
-    [super dealloc];
-}
 - (void)viewDidUnload {
     [self setThumbnail:nil];
     [self setAuthorName:nil];
@@ -86,25 +71,26 @@ static NSDateFormatter *reader;
 }
 
 -(void)decorate {
+    __block DPTweetViewController *c = self;
     [self.descriptionText setCallbackBlock:^(STLinkActionType actionType, NSString *link) {
         // determine what the user clicked on
         switch (actionType) {
                 // if the user clicked on an account (@_max_k)
             case STLinkActionTypeAccount:
-                if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
-                    [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionMentions item:link];
+                if(c.delegate && [c.delegate respondsToSelector:@selector(tweet:action:item:)])
+                    [c.delegate tweet:[c.tweet valueForKeyPath:@"id_str"] action:DPTweetActionMentions item:link];
                 break;
                 
                 // if the user clicked on a hashtag (#thisisreallycool)
             case STLinkActionTypeHashtag:
-                if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
-                    [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionHashtag item:link];
+                if(c.delegate && [c.delegate respondsToSelector:@selector(tweet:action:item:)])
+                    [c.delegate tweet:[c.tweet valueForKeyPath:@"id_str"] action:DPTweetActionHashtag item:link];
                 break;
                 
                 // if the user clicked on a website (http://github.com/SebastienThiebaud)
             case STLinkActionTypeWebsite:
-                if(self.delegate && [self.delegate respondsToSelector:@selector(tweet:action:item:)])
-                    [self.delegate tweet:[self.tweet valueForKeyPath:@"id_str"] action:DPTweetActionWeblink item:link];
+                if(c.delegate && [c.delegate respondsToSelector:@selector(tweet:action:item:)])
+                    [c.delegate tweet:[c.tweet valueForKeyPath:@"id_str"] action:DPTweetActionWeblink item:link];
                 break;
         }
     }];
@@ -164,11 +150,17 @@ static NSDateFormatter *reader;
     rect.origin.y = self.separatorView.frame.origin.y + 9.0;
     self.favouriteButton.frame = rect;
     
+    rect = self.timestamp.frame;
+    rect.origin.y = self.separatorView.frame.origin.y + 9.0;
+    self.timestamp.frame = rect;
+    
     rect = self.containerView.frame;
     rect.size.height = self.retweetButton.frame.size.height + self.retweetButton.frame.origin.y  + 8.0;
     self.containerView.frame = rect;
     
-    [self.followButton setBackgroundImage:[[UIImage imageNamed:@"btn_up"] stretchableImageWithLeftCapWidth:5 topCapHeight:5] forState:UIControlStateNormal];
+    self.followButton.layer.cornerRadius = 5.0;
+    self.followButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.followButton.layer.borderWidth = 1.0;
 }
 
 - (IBAction)followPressed:(id)sender {

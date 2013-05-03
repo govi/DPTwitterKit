@@ -17,6 +17,8 @@
 #import <Twitter/Twitter.h>
 #import "REComposeViewController.h"
 #import "DPTweetViewController.h"
+#import "DPAuthorViewController.h"
+#import "DPTwitterTableDelegate.h"
 
 @implementation DPTwitterService
 
@@ -87,17 +89,23 @@
     }];
 }
 
--(void)follow:(NSString *)user forTweet:(NSString *)tweet {
-    [self.wrapper postFollow:user successBlock:^(NSDictionary *user) {
-        [self refreshTweet:tweet];
+-(void)follow:(NSString *)u forTweet:(NSString *)tweet {
+    [self.wrapper postFollow:u successBlock:^(NSDictionary *user) {
+        if(tweet)
+            [self refreshTweet:tweet];
+        else
+            [self refreshUser:u];
     } errorBlock:^(NSError *error) {
         NSLog(@"follow error: %@", [error localizedDescription]);
     }];
 }
 
--(void)unfollow:(NSString *)user forTweet:(NSString *)tweet {
-    [self.wrapper postUnfollow:user successBlock:^(NSDictionary *user) {
-        [self refreshTweet:tweet];
+-(void)unfollow:(NSString *)u forTweet:(NSString *)tweet {
+    [self.wrapper postUnfollow:u successBlock:^(NSDictionary *user) {
+        if(tweet)
+            [self refreshTweet:tweet];
+        else
+            [self refreshUser:u];
     } errorBlock:^(NSError *error) {
         NSLog(@"unfollow error: %@", [error localizedDescription]);
     }];
@@ -107,6 +115,15 @@
     [self.wrapper getStatusWithID:idString successBlock:^(NSDictionary *status) {
         [[DPTweetsCache sharedCache] updateTweet:status byId:idString];
         [[NSNotificationCenter defaultCenter] postNotificationName:kDPTweetsUpdatedNotification object:nil];
+    } errorBlock:^(NSError *error) {
+        NSLog(@"refresh Error : %@", [error localizedDescription]);
+    }];
+}
+
+-(void)refreshUser:(NSString *)idString {
+    [self.wrapper getUserInformationFor:idString successBlock:^(NSDictionary *user) {
+        [[DPTweetsCache sharedCache] updateUser:user byId:idString];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDPUserUpdatedNotification object:nil];
     } errorBlock:^(NSError *error) {
         NSLog(@"refresh Error : %@", [error localizedDescription]);
     }];
@@ -137,10 +154,52 @@
     [composeViewController presentFromRootViewController];
 }
 
+-(void)search:(NSString *)searchString forController:(id<DPTweetsDisplay>)c {
+    if(c) {
+        ((DPTwitterTableDataSource *)c.datasource).delegate = self;
+        [SVProgressHUD show];
+    }
+    
+    [self.wrapper getSearchTweetsWithQuery:[searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] successBlock:^(NSDictionary *response) {
+        NSMutableDictionary *responseDict = [response mutableCopy];
+        [responseDict setObject:[NSDate date] forKey:@"downloadedAt"];
+        if(c) {
+            ((DPTwitterTableDataSource *)c.datasource).tweets = [[DPTweetsCache sharedCache] addTweets:[response objectForKey:@"statuses"]];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDPTweetsUpdatedNotification object:nil];
+        [SVProgressHUD dismiss];
+    } errorBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"Search Error: %@", [error localizedDescription]);
+    }];
+}
+
+-(void)timeline:(NSString *)searchString forController:(id<DPTweetsDisplay>)c {
+    if(c) {
+        ((DPTwitterTableDataSource *)c.datasource).delegate = self;
+        [SVProgressHUD show];
+    }
+    [self.wrapper getUserTimelineWithScreenName:searchString successBlock:^(NSArray *array) {
+        if(c) {
+            ((DPTwitterTableDataSource *)c.datasource).tweets = [[DPTweetsCache sharedCache]addTweets:array];
+        }
+        NSMutableDictionary *responseDict = [[NSMutableDictionary alloc] init];
+        [responseDict setObject:[NSDate date] forKey:@"downloadedAt"];
+        if(c) {
+            ((DPTwitterTableDataSource *)c.datasource).tweets = [[DPTweetsCache sharedCache] addTweets:array];
+        }
+        [responseDict setObject:array forKey:@"statuses"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDPTweetsUpdatedNotification object:nil];
+        [SVProgressHUD dismiss];
+    } errorBlock:^(NSError *error) {
+        [SVProgressHUD dismiss];
+        NSLog(@"Search Error: %@", [error localizedDescription]);
+    }];
+}
+
 -(void)openTwitterList:(NSArray *)items andTitle:(NSString *)string {
     UIViewController<DPTweetsDisplay> *tweets = [DPTweetsListViewController controllerForTweets:items];
     ((DPTwitterTableDataSource *)tweets.datasource).delegate = self;
-    ((DPTwitterTableDataSource *)tweets.delegate).delegate = self;
     tweets.navigationItem.title = string;
     [[NSNotificationCenter defaultCenter] postNotificationName:kDPTweetsUpdatedNotification object:nil];
     [self presentViewController:tweets];
@@ -164,10 +223,17 @@
             break;
         case DPTweetActionFollow: {
             NSDictionary *tweet = [[DPTweetsCache sharedCache] tweetWithId:tweetId];
-            if([[tweet nullsafeValueForKeyPath:@"user.follow_request_sent"] boolValue] || [[tweet nullsafeValueForKeyPath:@"user.following"] boolValue])
-                [self unfollow:string forTweet:tweetId];
-            else
-                [self follow:string forTweet:tweetId];
+            if(tweet) {
+                if([[tweet nullsafeValueForKeyPath:@"user.follow_request_sent"] boolValue] || [[tweet nullsafeValueForKeyPath:@"user.following"] boolValue])
+                    [self unfollow:string forTweet:tweetId];
+                else
+                    [self follow:string forTweet:tweetId];
+            } else {
+                if([tweetId boolValue])
+                    [self unfollow:string forTweet:nil];
+                else
+                    [self follow:string forTweet:nil];
+            }
         }
             handled = YES;
             break;
@@ -182,7 +248,15 @@
             handled = YES;
             break;
         case DPTweetActionAuthor: {
-            [self openURL:[NSString stringWithFormat: @"http://m.twitter.com/%@", string]];
+            NSDictionary *tweet = [[DPTweetsCache sharedCache] tweetWithId:tweetId];
+            NSDictionary *user = [tweet objectForKey:@"user"];
+            DPAuthorViewController *author = [[DPAuthorViewController alloc] init];
+            author.user = user;
+            author.delegate = self;
+            author.navigationItem.title = [user objectForKey:@"name"];
+            author.datasource = [[DPTwitterTableDataSource alloc] init];
+            [self search:[user objectForKey:@"screen_name"] forController:author];
+            [self presentViewController:author];
             handled = YES;
         }
             break;

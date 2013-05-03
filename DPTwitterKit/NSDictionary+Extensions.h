@@ -11,5 +11,6 @@
 @interface NSDictionary (Extensions)
 
 -(id)nullsafeValueForKeyPath:(NSString *)keyPath;
+-(id)nullsafeObjectForKey:(NSString *)key;
 
 @end

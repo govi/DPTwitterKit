@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 #define kDPTweetsAvailableNotification @"new tweets"
-#define kDPTweetsUpdatedNotification @"new tweets"
+#define kDPTweetsUpdatedNotification @"upd tweets"
+#define kDPUserUpdatedNotification @"upd user"
 
 typedef enum {
     DPTweetActionFollow,

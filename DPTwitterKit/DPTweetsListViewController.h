@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "DPTweetsDisplay.h"
 
-@interface DPTweetsListViewController : UIViewController<DPTweetsDisplay>
+@interface DPTweetsListViewController : UIViewController<DPTweetsDisplay> {
+    id<UITableViewDelegate> tableDelegate;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *listView;
 

@@ -17,5 +17,7 @@
 -(NSDictionary *)tweetWithId:(NSString *)idString;
 -(void) removeTweetsById:(NSArray *)idArray;
 -(void) updateTweet:(NSDictionary *)dict byId:(NSString *)idString;
+-(void)updateUser:(NSDictionary *)dict byId:(NSString *)idString;
+-(NSDictionary *)userWithId:(NSString *)idString;
 
 @end

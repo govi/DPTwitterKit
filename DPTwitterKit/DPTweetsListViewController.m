@@ -37,7 +37,9 @@
 {
     [super viewDidLoad];
     self.listView.dataSource = self.datasource;
-    self.listView.delegate = self.delegate;
+    tableDelegate = [[DPTwitterTableDelegate alloc] init];
+    self.listView.delegate = tableDelegate;
+    ((DPTwitterTableDelegate *)tableDelegate).delegate = ((DPTwitterTableDataSource *)self.datasource).delegate;
     // Do any additional setup after loading the view from its nib.
     [[NSNotificationCenter defaultCenter] addObserver:self.listView selector:@selector(reloadData) name:kDPTweetsUpdatedNotification object:nil];
 }

@@ -17,4 +17,11 @@
     return val;
 }
 
+-(id)nullsafeObjectForKey:(NSString *)key {
+    id val = [self objectForKey:key];
+    if([val isEqual:[NSNull null]])
+        return nil;
+    return val;
+}
+
 @end

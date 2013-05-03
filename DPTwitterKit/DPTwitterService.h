@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DPTwitterTableDataSource.h"
+#import "DPTweetsDisplay.h"
 
 @class STTwitterAPIWrapper;
 
@@ -21,5 +22,7 @@
 -(void)registerController:(UIViewController *)c;
 -(void)search:(NSString *)searchString;
 -(void)openURL:(NSString *)url;
+-(void)search:(NSString *)searchString forController:(id<DPTweetsDisplay>)c;
+-(void)timeline:(NSString *)searchString forController:(id<DPTweetsDisplay>)c;
 
 @end

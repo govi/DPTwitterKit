@@ -33,6 +33,9 @@
 		97E6FBA81732BB4B00A1D6CC /* tw_retweet_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 97E6FB9C1732BB4B00A1D6CC /* tw_retweet_highlighted.png */; };
 		97E6FBA91732BB4B00A1D6CC /* tw_retweet_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 97E6FB9D1732BB4B00A1D6CC /* tw_retweet_selected.png */; };
 		97E6FBAA1732BB4B00A1D6CC /* tw_retweet_selected_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 97E6FB9E1732BB4B00A1D6CC /* tw_retweet_selected_highlighted.png */; };
+		97E6FBAE1732BBC600A1D6CC /* DPAuthorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E6FBAC1732BBC500A1D6CC /* DPAuthorViewController.m */; };
+		97E6FBAF1732BBC600A1D6CC /* DPAuthorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97E6FBAD1732BBC600A1D6CC /* DPAuthorViewController.xib */; };
+		97E6FBB21733B2E400A1D6CC /* UIColor+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E6FBB11733B2E300A1D6CC /* UIColor+Extras.m */; };
 		97EA6087172E8BED0003CFF0 /* STTweetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA6086172E8BED0003CFF0 /* STTweetLabel.m */; };
 		97EA60AA172EBA360003CFF0 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA6092172EBA360003CFF0 /* MKAnnotationView+WebCache.m */; };
 		97EA60AB172EBA360003CFF0 /* NSData+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 97EA6094172EBA360003CFF0 /* NSData+GIF.m */; };
@@ -131,6 +134,11 @@
 		97E6FB9C1732BB4B00A1D6CC /* tw_retweet_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw_retweet_highlighted.png; sourceTree = "<group>"; };
 		97E6FB9D1732BB4B00A1D6CC /* tw_retweet_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw_retweet_selected.png; sourceTree = "<group>"; };
 		97E6FB9E1732BB4B00A1D6CC /* tw_retweet_selected_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tw_retweet_selected_highlighted.png; sourceTree = "<group>"; };
+		97E6FBAB1732BBC500A1D6CC /* DPAuthorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAuthorViewController.h; sourceTree = "<group>"; };
+		97E6FBAC1732BBC500A1D6CC /* DPAuthorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAuthorViewController.m; sourceTree = "<group>"; };
+		97E6FBAD1732BBC600A1D6CC /* DPAuthorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DPAuthorViewController.xib; sourceTree = "<group>"; };
+		97E6FBB01733B2E300A1D6CC /* UIColor+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extras.h"; sourceTree = "<group>"; };
+		97E6FBB11733B2E300A1D6CC /* UIColor+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extras.m"; sourceTree = "<group>"; };
 		97EA6085172E8BED0003CFF0 /* STTweetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTweetLabel.h; sourceTree = "<group>"; };
 		97EA6086172E8BED0003CFF0 /* STTweetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTweetLabel.m; sourceTree = "<group>"; };
 		97EA6091172EBA360003CFF0 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -317,6 +325,8 @@
 				977CCB94172ACC5A00C3FF6A /* Default.png */,
 				977CCB96172ACC5A00C3FF6A /* Default@2x.png */,
 				977CCB98172ACC5A00C3FF6A /* Default-568h@2x.png */,
+				97E6FBB01733B2E300A1D6CC /* UIColor+Extras.h */,
+				97E6FBB11733B2E300A1D6CC /* UIColor+Extras.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -496,6 +506,9 @@
 				97EA6132173117190003CFF0 /* DPTwitterTableDelegate.m */,
 				97EA6133173117190003CFF0 /* NSDictionary+Extensions.h */,
 				97EA6134173117190003CFF0 /* NSDictionary+Extensions.m */,
+				97E6FBAB1732BBC500A1D6CC /* DPAuthorViewController.h */,
+				97E6FBAC1732BBC500A1D6CC /* DPAuthorViewController.m */,
+				97E6FBAD1732BBC600A1D6CC /* DPAuthorViewController.xib */,
 			);
 			path = DPTwitterKit;
 			sourceTree = SOURCE_ROOT;
@@ -611,6 +624,7 @@
 				97E6FBA81732BB4B00A1D6CC /* tw_retweet_highlighted.png in Resources */,
 				97E6FBA91732BB4B00A1D6CC /* tw_retweet_selected.png in Resources */,
 				97E6FBAA1732BB4B00A1D6CC /* tw_retweet_selected_highlighted.png in Resources */,
+				97E6FBAF1732BBC600A1D6CC /* DPAuthorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,6 +674,8 @@
 				97EA613C173117190003CFF0 /* DPTwitterTableDelegate.m in Sources */,
 				97EA613D173117190003CFF0 /* NSDictionary+Extensions.m in Sources */,
 				97E6FB901732B8CE00A1D6CC /* DPTweetViewController.m in Sources */,
+				97E6FBAE1732BBC600A1D6CC /* DPAuthorViewController.m in Sources */,
+				97E6FBB21733B2E400A1D6CC /* UIColor+Extras.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

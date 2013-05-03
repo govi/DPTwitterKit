@@ -52,4 +52,15 @@
     [tweetsCache setObject:dict forKey:idString];
 }
 
+-(NSDictionary *)userWithId:(NSString *)idString {
+    id obj = [tweetsCache objectForKey:[NSString stringWithFormat:@"user_%@", idString]];
+    if(obj == NULL)
+        NSLog(@"%@", idString);
+    return obj;
+}
+
+-(void)updateUser:(NSDictionary *)dict byId:(NSString *)idString {
+    [tweetsCache setObject:dict forKey:[NSString stringWithFormat:@"user_%@", idString]];
+}
+
 @end
