@@ -39,7 +39,7 @@
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="48748496">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">290</int>
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUILabel" id="253385393">
 								<reference key="NSNextResponder" ref="48748496"/>
@@ -631,17 +631,12 @@
 					<string key="className">DPTweetViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="authorPressed:">id</string>
 						<string key="favouritePressed:">id</string>
 						<string key="followPressed:">id</string>
 						<string key="replyPressed:">id</string>
 						<string key="retweetPressed:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="authorPressed:">
-							<string key="name">authorPressed:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="favouritePressed:">
 							<string key="name">favouritePressed:</string>
 							<string key="candidateClassName">id</string>

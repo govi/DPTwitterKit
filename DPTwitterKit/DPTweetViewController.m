@@ -199,4 +199,8 @@ static NSDateFormatter *reader;
     }
 }
 
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

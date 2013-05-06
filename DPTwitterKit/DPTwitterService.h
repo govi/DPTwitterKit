@@ -10,13 +10,22 @@
 #import "DPTwitterTableDataSource.h"
 #import "DPTweetsDisplay.h"
 
+#define kDPTwitterRegCompleteNotification @"twitter completed registtation"
+
 @class STTwitterAPIWrapper;
+
+typedef enum {
+    DPTwitterAccountServiceApp,
+    DPTwitterAccountServiceOS,
+    DPTwitterAccountServiceAppUser
+} DPTwitterAccountService;
 
 @interface DPTwitterService : NSObject <DPTweetDelegate> {
     UIViewController *controller;
 }
 
 @property (nonatomic, strong) STTwitterAPIWrapper *wrapper;
+@property (nonatomic) DPTwitterAccountService currentService;
 
 +(DPTwitterService *)sharedService;
 -(void)registerController:(UIViewController *)c;

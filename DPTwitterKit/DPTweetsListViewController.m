@@ -55,4 +55,8 @@
     [super viewDidUnload];
 }
 
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end
