@@ -110,11 +110,15 @@
 }
 
 -(void)retweet:(NSString *)idString {
+    if(self.currentService != DPTwitterAccountServiceApp) {
     [self.wrapper postStatusRetweetWithID:idString successBlock:^(NSDictionary *status) {
         [self refreshTweet:idString];
     } errorBlock:^(NSError *error) {
         NSLog(@"Retweet Error: %@", [error localizedDescription]);
     }];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"You need to login to Twitter from your Device Settings to retweet from this application." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+    }
 }
 
 -(void)favourite:(BOOL)state forId:(NSString *)idString {
