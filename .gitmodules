@@ -1,18 +1,6 @@
 [submodule "submodules/STTweetLabel"]
 	path = submodules/STTweetLabel
 	url = https://github.com/govi/STTweetLabel.git
-[submodule "submodules/SDWebImage"]
-	path = submodules/SDWebImage
-	url = https://github.com/rs/SDWebImage.git
-[submodule "submodules/TSMiniWebBrowser"]
-	path = submodules/TSMiniWebBrowser
-	url = https://github.com/tonisalae/TSMiniWebBrowser.git
 [submodule "submodules/STTwitter"]
 	path = submodules/STTwitter
 	url = git@github.com:govi/STTwitter.git
-[submodule "submodules/SVProgressHUD"]
-	path = submodules/SVProgressHUD
-	url = https://github.com/samvermette/SVProgressHUD.git
-[submodule "submodules/REComposeViewController"]
-	path = submodules/REComposeViewController
-	url = https://github.com/romaonthego/REComposeViewController.git
