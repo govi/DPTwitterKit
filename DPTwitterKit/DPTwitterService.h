@@ -33,5 +33,8 @@ typedef enum {
 -(void)openURL:(NSString *)url;
 -(void)search:(NSString *)searchString forController:(id<DPTweetsDisplay>)c;
 -(void)timeline:(NSString *)searchString forController:(id<DPTweetsDisplay>)c;
+-(BOOL)checkAuthenticationType;
+-(NSString *)twitterKey;
+-(NSString *)twitterSecret;
 
 @end

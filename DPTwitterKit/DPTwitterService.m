@@ -36,7 +36,7 @@
     self = [super init];
     if(self) {
         NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:kLastSelectedTwitterUsername];
-        if (string) {
+        if (string && [[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == DPTwitterAccountConfigStatusSelected) {
             self.currentService = DPTwitterAccountServiceOS;
         } else
             self.currentService = DPTwitterAccountServiceApp;
@@ -55,7 +55,7 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:kDPTwitterRegCompleteNotification object:nil];
                 } errorBlock:^(NSError *error) {
                     NSLog(@"OS level auth failed. %@", [error localizedDescription]);
-                    self.wrapper = [STTwitterAPIWrapper twitterAPIApplicationOnlyWithConsumerKey:@"IzHQTmqxddy19BJlM3LPA" consumerSecret:@"o77XKFyDdRDpQ5vfi57kjHke55AIRNqc8n3GFH7X9ZU"];//my demo keys
+                    self.wrapper = [STTwitterAPIWrapper twitterAPIApplicationOnlyWithConsumerKey:[self twitterKey] consumerSecret:[self twitterSecret]];//my demo keys
                     [_wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
                         //verified application keys
                         NSLog(@"verifid app level");
@@ -68,7 +68,7 @@
             }
                 break;
             case DPTwitterAccountServiceApp: {
-                self.wrapper = [STTwitterAPIWrapper twitterAPIApplicationOnlyWithConsumerKey:@"IzHQTmqxddy19BJlM3LPA" consumerSecret:@"o77XKFyDdRDpQ5vfi57kjHke55AIRNqc8n3GFH7X9ZU"];//my demo keys
+                self.wrapper = [STTwitterAPIWrapper twitterAPIApplicationOnlyWithConsumerKey:[self twitterKey] consumerSecret:[self twitterSecret]];//my demo keys
                 [_wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
                     //verified application keys
                     NSLog(@"verifid app level");
@@ -86,6 +86,14 @@
         
     }
     return _wrapper;
+}
+
+-(NSString *)twitterKey {
+    return @"IzHQTmqxddy19BJlM3LPA";
+}
+
+-(NSString *)twitterSecret {
+    return @"o77XKFyDdRDpQ5vfi57kjHke55AIRNqc8n3GFH7X9ZU";
 }
 
 -(void)setCurrentService:(DPTwitterAccountService)c {
@@ -110,34 +118,36 @@
 }
 
 -(void)retweet:(NSString *)idString {
-    if(self.currentService != DPTwitterAccountServiceApp) {
-    [self.wrapper postStatusRetweetWithID:idString successBlock:^(NSDictionary *status) {
-        [self refreshTweet:idString];
-    } errorBlock:^(NSError *error) {
-        NSLog(@"Retweet Error: %@", [error localizedDescription]);
-    }];
-    } else {
-        [[[UIAlertView alloc] initWithTitle:@"You need to login to Twitter from your Device Settings to retweet from this application." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+    if([self checkAuthenticationType]) {
+        [self.wrapper postStatusRetweetWithID:idString successBlock:^(NSDictionary *status) {
+            [self refreshTweet:idString];
+        } errorBlock:^(NSError *error) {
+            NSLog(@"Retweet Error: %@", [error localizedDescription]);
+        }];
     }
 }
 
 -(void)favourite:(BOOL)state forId:(NSString *)idString {
-    [self.wrapper postFavoriteState:state forStatusID:idString successBlock:^(NSDictionary *status) {
-        [self refreshTweet:idString];
-    } errorBlock:^(NSError *error) {
-        NSLog(@"favourite error: %@", [error localizedDescription]);
-    }];
+    if([self checkAuthenticationType]) {
+        [self.wrapper postFavoriteState:state forStatusID:idString successBlock:^(NSDictionary *status) {
+            [self refreshTweet:idString];
+        } errorBlock:^(NSError *error) {
+            NSLog(@"favourite error: %@", [error localizedDescription]);
+        }];
+    }
 }
 
 -(void)follow:(NSString *)u forTweet:(NSString *)tweet {
-    [self.wrapper postFollow:u successBlock:^(NSDictionary *user) {
-        if(tweet)
-            [self refreshTweet:tweet];
-        else
-            [self refreshUser:u];
-    } errorBlock:^(NSError *error) {
-        NSLog(@"follow error: %@", [error localizedDescription]);
-    }];
+    if([self checkAuthenticationType]) {
+        [self.wrapper postFollow:u successBlock:^(NSDictionary *user) {
+            if(tweet)
+                [self refreshTweet:tweet];
+            else
+                [self refreshUser:u];
+        } errorBlock:^(NSError *error) {
+            NSLog(@"follow error: %@", [error localizedDescription]);
+        }];
+    }
 }
 
 -(void)unfollow:(NSString *)u forTweet:(NSString *)tweet {
@@ -170,28 +180,42 @@
 }
 
 -(void)replyToTweet:(NSString *)tweetId fromAuthor:(NSString *)name {
-    REComposeViewController *composeViewController = [[REComposeViewController alloc] init];
-    composeViewController.text = [NSString stringWithFormat:@"@%@", name];
-    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"twitter-bird-dark-bgs.png"]];
-    titleImageView.frame = CGRectMake(0, 0, 110, 40);
-    titleImageView.contentMode = UIViewContentModeScaleAspectFit;
-    composeViewController.navigationItem.titleView = titleImageView;
-    [composeViewController.navigationBar setTintColor:[UIColor colorWithRed:34/255.0 green:158/255.0 blue:213/255.0 alpha:1.0]];
-    composeViewController.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:60/255.0 green:165/255.0 blue:194/255.0 alpha:1];
-    composeViewController.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:29/255.0 green:118/255.0 blue:143/255.0 alpha:1];
-    composeViewController.completionHandler = ^(REComposeViewController *composeViewController, REComposeResult result) {
-        [composeViewController dismissViewControllerAnimated:YES completion:nil];
-        if (result == REComposeResultPosted) {
-            [SVProgressHUD showWithStatus:@"Replying"];
-            [self.wrapper postStatusUpdate:composeViewController.text inReplyToStatusID:tweetId placeID:nil lat:nil lon:nil successBlock:^(NSDictionary *status) {
-                [SVProgressHUD showSuccessWithStatus:@"Replied"];
-            } errorBlock:^(NSError *error) {
-                [SVProgressHUD showErrorWithStatus:@"Failed"];
-                NSLog(@"reply Error : %@", [error localizedDescription]);
-            }];
+    if([self checkAuthenticationType]) {
+        REComposeViewController *composeViewController = [[REComposeViewController alloc] init];
+        composeViewController.text = [NSString stringWithFormat:@"@%@", name];
+        UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"twitter-bird-dark-bgs.png"]];
+        titleImageView.frame = CGRectMake(0, 0, 110, 40);
+        titleImageView.contentMode = UIViewContentModeScaleAspectFit;
+        composeViewController.navigationItem.titleView = titleImageView;
+        [composeViewController.navigationBar setTintColor:[UIColor colorWithRed:34/255.0 green:158/255.0 blue:213/255.0 alpha:1.0]];
+        composeViewController.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:60/255.0 green:165/255.0 blue:194/255.0 alpha:1];
+        composeViewController.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:29/255.0 green:118/255.0 blue:143/255.0 alpha:1];
+        composeViewController.completionHandler = ^(REComposeViewController *composeViewController, REComposeResult result) {
+            [composeViewController dismissViewControllerAnimated:YES completion:nil];
+            if (result == REComposeResultPosted) {
+                [SVProgressHUD showWithStatus:@"Replying"];
+                [self.wrapper postStatusUpdate:composeViewController.text inReplyToStatusID:tweetId placeID:nil lat:nil lon:nil successBlock:^(NSDictionary *status) {
+                    [SVProgressHUD showSuccessWithStatus:@"Replied"];
+                } errorBlock:^(NSError *error) {
+                    [SVProgressHUD showErrorWithStatus:@"Failed"];
+                    NSLog(@"reply Error : %@", [error localizedDescription]);
+                }];
+            }
+        };
+        [composeViewController presentFromRootViewController];
+    }
+}
+
+-(BOOL)checkAuthenticationType {
+    if(self.currentService == DPTwitterAccountServiceApp) {
+        if([[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == DPTwitterAccountConfigStatusSelected) {
+            self.currentService = DPTwitterAccountServiceOS;
+        } else {
+            [[[UIAlertView alloc] initWithTitle:@"You need to login to Twitter from your Device Settings and approve the application to use those credentials." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
+            return NO;
         }
-    };
-    [composeViewController presentFromRootViewController];
+    }
+    return YES;
 }
 
 -(void)search:(NSString *)searchString forController:(id<DPTweetsDisplay>)c {
@@ -250,7 +274,7 @@
     switch (action) {
         case DPTweetActionMentions:
         case DPTweetActionHashtag:
-            [self search:string];
+            [self search:[string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             handled = YES;
             break;
         case DPTweetActionRetweet:
