@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-    s.name          =   "DPTwitterKit.podspec"
+    s.name          =   "DPTwitterKit"
     s.version       =   "0.0.1"
     s.summary       =   "Embeddable Twitter client"
     s.license       =   "MIT"
