@@ -78,7 +78,7 @@
 /* Begin PBXFileReference section */
 		7002D5D4A43A4C9E902DB3EA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		9774F1DB176A129700180D4A /* DPTwitterKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DPTwitterKit.podspec; sourceTree = "<group>"; };
-		9774F1DD176A1DA800180D4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		9774F1DD176A1DA800180D4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		977CCB7F172ACC5A00C3FF6A /* TwitterTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		977CCB82172ACC5A00C3FF6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		977CCB84172ACC5A00C3FF6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
