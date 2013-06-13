@@ -36,7 +36,7 @@
     self = [super init];
     if(self) {
         NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:kLastSelectedTwitterUsername];
-        if (string && [[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == DPTwitterAccountConfigStatusSelected) {
+        if (string && [[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == STTwitterAccountConfigStatusSelected) {
             self.currentService = DPTwitterAccountServiceOS;
         } else
             self.currentService = DPTwitterAccountServiceApp;
@@ -52,14 +52,14 @@
                 [_wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
                     //verified os level auth
                     NSLog(@"verifid oslevel");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kDPTwitterRegCompleteNotification object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kSTTwitterRegCompleteNotification object:nil];
                 } errorBlock:^(NSError *error) {
                     NSLog(@"OS level auth failed. %@", [error localizedDescription]);
                     self.wrapper = [STTwitterAPIWrapper twitterAPIApplicationOnlyWithConsumerKey:[self twitterKey] consumerSecret:[self twitterSecret]];//my demo keys
                     [_wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
                         //verified application keys
                         NSLog(@"verifid app level");
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kDPTwitterRegCompleteNotification object:nil];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kSTTwitterRegCompleteNotification object:nil];
                     } errorBlock:^(NSError *error) {
                         NSLog(@"Application keys failed as well. %@", [error localizedDescription]);
                         self.wrapper = nil;//setting this nil, so it will try to get all this everytime a call to get the wrapper is made. although.. not at the same time.
@@ -72,7 +72,7 @@
                 [_wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
                     //verified application keys
                     NSLog(@"verifid app level");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kDPTwitterRegCompleteNotification object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kSTTwitterRegCompleteNotification object:nil];
                 } errorBlock:^(NSError *error) {
                     NSLog(@"Application keys failed as well. %@", [error localizedDescription]);
                     self.wrapper = nil;//setting this nil, so it will try to get all this everytime a call to get the wrapper is made. although.. not at the same time.
@@ -208,7 +208,7 @@
 
 -(BOOL)checkAuthenticationType {
     if(self.currentService == DPTwitterAccountServiceApp) {
-        if([[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == DPTwitterAccountConfigStatusSelected) {
+        if([[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == STTwitterAccountConfigStatusSelected) {
             self.currentService = DPTwitterAccountServiceOS;
         } else {
             [[[UIAlertView alloc] initWithTitle:@"You need to login to Twitter from your Device Settings and approve the application to use those credentials." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
