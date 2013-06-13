@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9774F1DC176A129700180D4A /* DPTwitterKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 9774F1DB176A129700180D4A /* DPTwitterKit.podspec */; };
 		977CCB83172ACC5A00C3FF6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977CCB82172ACC5A00C3FF6A /* UIKit.framework */; };
 		977CCB85172ACC5A00C3FF6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977CCB84172ACC5A00C3FF6A /* Foundation.framework */; };
 		977CCB8D172ACC5A00C3FF6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 977CCB8B172ACC5A00C3FF6A /* InfoPlist.strings */; };
@@ -101,6 +102,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9774F1DB176A129700180D4A /* DPTwitterKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DPTwitterKit.podspec; sourceTree = "<group>"; };
 		977CCB7F172ACC5A00C3FF6A /* TwitterTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		977CCB82172ACC5A00C3FF6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		977CCB84172ACC5A00C3FF6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -264,6 +266,7 @@
 		977CCB76172ACC5A00C3FF6A = {
 			isa = PBXGroup;
 			children = (
+				9774F1DB176A129700180D4A /* DPTwitterKit.podspec */,
 				97EA60BC172EBB950003CFF0 /* MapKit.framework */,
 				97EA60BA172EBB630003CFF0 /* ImageIO.framework */,
 				97EA60B8172EBB270003CFF0 /* CoreFoundation.framework */,
@@ -625,6 +628,7 @@
 				97E6FBA91732BB4B00A1D6CC /* tw_retweet_selected.png in Resources */,
 				97E6FBAA1732BB4B00A1D6CC /* tw_retweet_selected_highlighted.png in Resources */,
 				97E6FBAF1732BBC600A1D6CC /* DPAuthorViewController.xib in Resources */,
+				9774F1DC176A129700180D4A /* DPTwitterKit.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
