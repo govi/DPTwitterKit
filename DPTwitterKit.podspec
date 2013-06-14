@@ -14,4 +14,6 @@ Pod::Spec.new do |s|
     s.dependency 'SVProgressHUD', '~> 0.9'
     s.dependency 'TSMiniWebBrowser', '~> 1.0.1'
     s.dependency 'SDWebImage', '~> 3.2'
+    s.dependency 'STTwitter', :git => 'https://github.com/govi/STTwitter.git'
+    s.dependency 'STTweetLabel', :git => 'https://github.com/govi/STTweetLabel.git', :commit => '395c3ca5f8'
 end

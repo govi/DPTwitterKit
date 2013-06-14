@@ -1,6 +1,0 @@
-[submodule "submodules/STTweetLabel"]
-	path = submodules/STTweetLabel
-	url = https://github.com/govi/STTweetLabel.git
-[submodule "submodules/STTwitter"]
-	path = submodules/STTwitter
-	url = git@github.com:govi/STTwitter.git
