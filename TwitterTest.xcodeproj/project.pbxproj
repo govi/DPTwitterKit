@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9774F1DC176A129700180D4A /* DPTwitterKit.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 9774F1DB176A129700180D4A /* DPTwitterKit.podspec */; };
 		9774F1DE176A1DA800180D4A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 9774F1DD176A1DA800180D4A /* Podfile */; };
+		9774F1E2176A322900180D4A /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9774F1E1176A322900180D4A /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		977CCB83172ACC5A00C3FF6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977CCB82172ACC5A00C3FF6A /* UIKit.framework */; };
 		977CCB85172ACC5A00C3FF6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977CCB84172ACC5A00C3FF6A /* Foundation.framework */; };
 		977CCB8D172ACC5A00C3FF6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 977CCB8B172ACC5A00C3FF6A /* InfoPlist.strings */; };
@@ -70,6 +71,7 @@
 		7002D5D4A43A4C9E902DB3EA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		9774F1DB176A129700180D4A /* DPTwitterKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DPTwitterKit.podspec; sourceTree = "<group>"; };
 		9774F1DD176A1DA800180D4A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9774F1E1176A322900180D4A /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		977CCB7F172ACC5A00C3FF6A /* TwitterTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		977CCB82172ACC5A00C3FF6A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		977CCB84172ACC5A00C3FF6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -150,6 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9774F1E2176A322900180D4A /* Social.framework in Frameworks */,
 				97EA610517303B800003CFF0 /* CoreGraphics.framework in Frameworks */,
 				97EA610417303B6D0003CFF0 /* QuartzCore.framework in Frameworks */,
 				97EA60BD172EBB950003CFF0 /* MapKit.framework in Frameworks */,
@@ -168,6 +171,7 @@
 		977CCB76172ACC5A00C3FF6A = {
 			isa = PBXGroup;
 			children = (
+				9774F1E1176A322900180D4A /* Social.framework */,
 				9774F1DD176A1DA800180D4A /* Podfile */,
 				9774F1DB176A129700180D4A /* DPTwitterKit.podspec */,
 				97EA60BC172EBB950003CFF0 /* MapKit.framework */,
