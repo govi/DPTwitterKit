@@ -39,7 +39,7 @@ static NSDateFormatter *reader;
     [self displayTweet:self.tweet];
     // Do any additional setup after loading the view from its nib.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTweet) name:kDPTweetsUpdatedNotification object:nil];
-    self.navigationItem.title = @"Tweet";
+    //self.navigationItem.title = @"Tweet";
 }
 
 -(void)refreshTweet {

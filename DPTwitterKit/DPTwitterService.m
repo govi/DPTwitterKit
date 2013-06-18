@@ -273,6 +273,9 @@
     BOOL handled = NO;
     switch (action) {
         case DPTweetActionMentions:
+            [self search:[[NSString stringWithFormat:@"from:%@", string] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            handled = YES;
+            break;
         case DPTweetActionHashtag:
             [self search:[string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             handled = YES;
@@ -317,7 +320,6 @@
             DPAuthorViewController *author = [[DPAuthorViewController alloc] init];
             author.user = user;
             author.delegate = self;
-            author.navigationItem.title = [user objectForKey:@"name"];
             author.datasource = [[DPTwitterTableDataSource alloc] init];
             [self timeline:[user objectForKey:@"screen_name"] forController:author];
             [self presentViewController:author];
