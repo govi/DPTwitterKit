@@ -36,7 +36,7 @@
     self = [super init];
     if(self) {
         NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:kLastSelectedTwitterUsername];
-        if (string && [[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == DPTwitterAccountConfigStatusSelected) {
+        if (string && [[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == STTwitterAccountConfigStatusSelected) {
             self.currentService = DPTwitterAccountServiceOS;
         } else
             self.currentService = DPTwitterAccountServiceApp;
@@ -218,7 +218,7 @@
 
 -(BOOL)checkAuthenticationType {
     if(self.currentService == DPTwitterAccountServiceApp) {
-        if([[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == DPTwitterAccountConfigStatusSelected) {
+        if([[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == STTwitterAccountConfigStatusSelected) {
             self.currentService = DPTwitterAccountServiceOS;
         } else {
             [[[UIAlertView alloc] initWithTitle:@"You need to login to Twitter from your Device Settings and approve the application to use those credentials." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
