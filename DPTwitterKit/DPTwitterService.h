@@ -10,6 +10,9 @@
 #import "DPTwitterTableDataSource.h"
 #import "DPTweetsDisplay.h"
 
+#define kDPTwitterRegCompleteNotification @"twitter completed registtation"
+#define kDPTwitterRegErrorNotification @"twitter error registtation"
+
 @class STTwitterAPIWrapper;
 
 typedef enum {

@@ -36,7 +36,7 @@
     self = [super init];
     if(self) {
         NSString *string = [[NSUserDefaults standardUserDefaults] objectForKey:kLastSelectedTwitterUsername];
-        if (string && [[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == STTwitterAccountConfigStatusSelected) {
+        if (string && [[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == DPTwitterAccountConfigStatusSelected) {
             self.currentService = DPTwitterAccountServiceOS;
         } else
             self.currentService = DPTwitterAccountServiceApp;
@@ -45,47 +45,57 @@
 }
 
 -(STTwitterAPIWrapper *)wrapper {
-    if(!_wrapper) {
-        switch (self.currentService) {
-            case DPTwitterAccountServiceOS: {
-                self.wrapper = [STTwitterAPIWrapper twitterAPIWithOAuthOSX];//try to get OS level auth
-                [_wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
-                    //verified os level auth
-                    NSLog(@"verifid oslevel");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kSTTwitterRegCompleteNotification object:nil];
-                } errorBlock:^(NSError *error) {
-                    NSLog(@"OS level auth failed. %@", [error localizedDescription]);
-                    self.wrapper = [STTwitterAPIWrapper twitterAPIApplicationOnlyWithConsumerKey:[self twitterKey] consumerSecret:[self twitterSecret]];//my demo keys
-                    [_wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
-                        //verified application keys
-                        NSLog(@"verifid app level");
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kSTTwitterRegCompleteNotification object:nil];
-                    } errorBlock:^(NSError *error) {
-                        NSLog(@"Application keys failed as well. %@", [error localizedDescription]);
-                        self.wrapper = nil;//setting this nil, so it will try to get all this everytime a call to get the wrapper is made. although.. not at the same time.
-                    }];
-                }];
-            }
-                break;
-            case DPTwitterAccountServiceApp: {
-                self.wrapper = [STTwitterAPIWrapper twitterAPIApplicationOnlyWithConsumerKey:[self twitterKey] consumerSecret:[self twitterSecret]];//my demo keys
-                [_wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
-                    //verified application keys
-                    NSLog(@"verifid app level");
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kSTTwitterRegCompleteNotification object:nil];
-                } errorBlock:^(NSError *error) {
-                    NSLog(@"Application keys failed as well. %@", [error localizedDescription]);
-                    self.wrapper = nil;//setting this nil, so it will try to get all this everytime a call to get the wrapper is made. although.. not at the same time.
-                }];
-            }
-                break;
-                
-            default:
-                break;
+    @autoreleasepool {
+        if(!_wrapper) {
+            [self createAWrapper];
         }
-        
     }
     return _wrapper;
+}
+
+-(void) createAWrapper {
+    __block DPTwitterService *service = self;
+    switch (self.currentService) {
+        case DPTwitterAccountServiceOS: {
+            self.wrapper = [STTwitterAPIWrapper twitterAPIWithOAuthOSX];//try to get OS level auth
+            [self.wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
+                //verified os level auth
+                NSLog(@"verifid oslevel");
+                [[NSNotificationCenter defaultCenter] postNotificationName:kDPTwitterRegCompleteNotification object:nil];
+            } errorBlock:^(NSError *error) {
+                service.wrapper = nil;
+                NSLog(@"OS level auth failed. %@", [error localizedDescription]);
+                [[NSNotificationCenter defaultCenter] postNotificationName:kDPTwitterRegErrorNotification object:error];
+                self.wrapper = [STTwitterAPIWrapper twitterAPIApplicationOnlyWithConsumerKey:[self twitterKey] consumerSecret:[self twitterSecret]];//my demo keys
+                [service.wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
+                    //verified application keys
+                    NSLog(@"verifid app level");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kDPTwitterRegCompleteNotification object:nil];
+                } errorBlock:^(NSError *error) {
+                    service.wrapper = nil;
+                    NSLog(@"Application keys failed as well. %@", [error localizedDescription]);
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kDPTwitterRegErrorNotification object:error];
+                }];
+            }];
+        }
+            break;
+        case DPTwitterAccountServiceApp: {
+            self.wrapper = [STTwitterAPIWrapper twitterAPIApplicationOnlyWithConsumerKey:[self twitterKey] consumerSecret:[self twitterSecret]];//my demo keys
+            [self.wrapper verifyCredentialsWithSuccessBlock:^(NSString *username) {
+                //verified application keys
+                NSLog(@"verifid app level");
+                [[NSNotificationCenter defaultCenter] postNotificationName:kDPTwitterRegCompleteNotification object:nil];
+            } errorBlock:^(NSError *error) {
+                service.wrapper = nil;
+                NSLog(@"Application keys failed as well. %@", [error localizedDescription]);
+                [[NSNotificationCenter defaultCenter] postNotificationName:kDPTwitterRegErrorNotification object:error];
+            }];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(NSString *)twitterKey {
@@ -208,7 +218,7 @@
 
 -(BOOL)checkAuthenticationType {
     if(self.currentService == DPTwitterAccountServiceApp) {
-        if([[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == STTwitterAccountConfigStatusSelected) {
+        if([[STTwitterAccountSelector sharedSelector] hasConfiguredAccounts] == DPTwitterAccountConfigStatusSelected) {
             self.currentService = DPTwitterAccountServiceOS;
         } else {
             [[[UIAlertView alloc] initWithTitle:@"You need to login to Twitter from your Device Settings and approve the application to use those credentials." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] show];
