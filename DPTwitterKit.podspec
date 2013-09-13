@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
     s.source        =   { :git => 'https://github.com/govi/DPTwitterKit.git', :tag => '0.0.1' }
     s.platform      =   :ios, '5.0'
     s.source_files  =   'DPTwitterKit', 'DPTwitterKit/**/*.{h,m}'
-    s.resources     =   'res/**/*.png'
+    s.resources     =   '**/*.{png,xib}'
     s.frameworks    =   'Twitter', 'Accounts', 'ImageIO'
     s.requires_arc  =   true
     s.homepage      =   'https://github.com/govi/DPTwitterKit'
