@@ -28,12 +28,14 @@
         cell = [DPTweetViewCell newCell];
         cell.delegate = self.delegate;
     }
-    NSString *tweetId = [_tweets objectAtIndex:indexPath.row];
-    NSDictionary *tweet = nil;
-    if(tweetId)
-        tweet = [[DPTweetsCache sharedCache] tweetWithId:tweetId];
-    if (tweet) {
-        [cell displayTweet:tweet];
+    if ([_tweets count] > indexPath.row) {
+        NSString *tweetId = [_tweets objectAtIndex:indexPath.row];
+        NSDictionary *tweet = nil;
+        if(tweetId)
+            tweet = [[DPTweetsCache sharedCache] tweetWithId:tweetId];
+        if (tweet) {
+            [cell displayTweet:tweet];
+        }
     }
     return cell;
 }
