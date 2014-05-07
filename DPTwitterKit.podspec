@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
     s.requires_arc  =   true
     s.homepage      =   'https://github.com/govi/DPTwitterKit'
     s.dependency 'REComposeViewController', '~> 2.1.1'
-    s.dependency 'SVProgressHUD', '~> 0.9'
+    s.dependency 'SVProgressHUD', '~> 1.0'
     s.dependency 'TSMiniWebBrowser', '~> 1.0.1'
     s.dependency 'SDWebImage', '~> 3.2'
     #s.dependency 'STTwitter', :git => 'https://github.com/govi/STTwitter.git'
