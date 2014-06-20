@@ -9,7 +9,7 @@
 #import "DPAuthorViewController.h"
 #import "NSDictionary+Extensions.h"
 #import "UIColor+Extras.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import <QuartzCore/QuartzCore.h>
 #import "STTweetLabel.h"
 #import "DPTweetsCache.h"

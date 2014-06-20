@@ -1,6 +1,6 @@
 pod 'REComposeViewController', '~> 2.3.1'
 pod 'SVProgressHUD', '~> 1.0'
 pod 'TSMiniWebBrowser', '~> 1.0.1'
-pod 'SDWebImage', '~> 3.2'
+pod 'AFNetworking', '~> 2.2'
 pod 'STTwitter', :git => 'https://github.com/govi/STTwitter.git'
 pod 'STTweetLabel', :git => 'https://github.com/govi/STTweetLabel.git', :commit => '395c3ca5f8'

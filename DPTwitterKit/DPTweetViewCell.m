@@ -8,7 +8,7 @@
 
 #import "DPTweetViewCell.h"
 #import "STTweetLabel.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "NSDictionary+Extensions.h"
 
 static NSDateFormatter *formatter;

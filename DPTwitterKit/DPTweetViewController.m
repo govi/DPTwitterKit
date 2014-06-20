@@ -8,7 +8,7 @@
 
 #import "DPTweetViewController.h"
 #import "STTweetLabel.h"
-#import "UIImageView+WebCache.h"
+#import <UIImageView+AFNetworking.h>
 #import "NSDictionary+Extensions.h"
 #import "DPTweetsCache.h"
 #import <QuartzCore/QuartzCore.h>
